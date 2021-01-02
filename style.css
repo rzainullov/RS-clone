@@ -162,7 +162,6 @@ template { display: none; }
 [hidden] { display: none; }
 
 /** Styles for document */
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap');
 body {
     font-family: 'Montserrat', sans-serif;
@@ -170,9 +169,66 @@ body {
     font-size: 1rem;
     color: black;
 }
-.container {
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 20px;
-    margin: 0 auto;
+
+/* Styles for header */
+.header {
+	height: 100px;
+	padding: 0 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: black;
+	z-index: 10;
+}
+.burger {
+	cursor: pointer;
+	height: 20px;
+	width: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.burger__strip {
+	position: relative;
+	width: 100%;
+	height: 2px;
+	background-color: gray;
+	transition: all 0.3s ease;
+}
+.burger.active > .burger__strip:nth-child(1) {
+	top: 9px;
+	transform: rotate(45deg);
+}
+.burger.active > .burger__strip:nth-child(2) {
+	display: none;
+}
+.burger.active > .burger__strip:nth-child(3) {
+	top: -9px;
+	transform: rotate(-45deg);
+}
+
+/* Styles for main */
+.main {
+  height: calc(100% - 200px);
+  background-color: gray;
+}
+
+/* Styles for footer */
+.footer {
+  height: 100px;
+  background-color: black;
+}
+
+/* Styles for modal */
+.modal {
+	width: 100%;
+	height: calc(100% - 200px);
+	position: absolute;
+	top: -100%;
+	background-color: green;
+	transition: top 0.5s ease;
+	z-index: 9;
+}
+.modal.active {
+	top: 100px;
 }
