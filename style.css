@@ -162,11 +162,10 @@ template { display: none; }
 [hidden] { display: none; }
 
 /** Styles for document */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Bangers', cursive;
     font-weight: 400;
-    font-size: 1rem;
     color: black;
 }
 
@@ -178,7 +177,7 @@ body {
 	align-items: center;
 	justify-content: space-between;
 	background-color: black;
-	z-index: 10;
+	z-index: 60;
 }
 .burger {
 	cursor: pointer;
@@ -225,9 +224,9 @@ body {
 	height: calc(100% - 200px);
 	position: absolute;
 	top: -100%;
-	background-color: green;
+	background: url("img/modal-img.png") no-repeat center center/cover;
 	transition: top 0.5s ease;
-	z-index: 9;
+	z-index: 50;
 }
 .modal.active {
 	top: 100px;
