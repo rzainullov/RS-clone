@@ -171,7 +171,7 @@ body {
 
 /* Styles for header */
 .header {
-	height: 100px;
+	height: 50px;
 	padding: 0 20px;
 	display: flex;
 	align-items: center;
@@ -208,14 +208,14 @@ body {
 
 /* Styles for main */
 .main {
-  height: calc(100% - 200px);
+  height: calc(100% - 120px);
   background-color: gray;
 }
 
 /* Styles for footer */
 .footer {
 	padding: 0 20px;
-	height: 100px;
+	height: 70px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -228,12 +228,17 @@ body {
   background: url("img/logo-rsschool.png") no-repeat center center/cover;
 }
 .footer__year {
-	font-size: 20px;
+	font-size: 26px;
 	color: #b9b9b9;
+}
+.footer__githubs p {
+	text-transform: uppercase;
+	color: #b9b9b9;
+	margin: 0;
 }
 .footer__githubs a {
 	text-transform: uppercase;
-  color: #b9b9b9;
+	color: #b9b9b9;
 }
 .footer__githubs a:hover {
   color: #ffffff;
@@ -249,7 +254,7 @@ body {
 /* Styles for modal */
 .modal {
 	width: 100%;
-	height: calc(100% - 200px);
+	height: calc(100% - 120px);
 	position: absolute;
 	top: -100%;
 	background: url("img/modal-img.png") no-repeat center center/cover;
@@ -257,5 +262,5 @@ body {
 	z-index: 50;
 }
 .modal.active {
-	top: 100px;
+	top: 50px;
 }
