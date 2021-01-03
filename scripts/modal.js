@@ -25,32 +25,44 @@ export class Modal {
 		logoText.style.cssText = 'font-size: 36px; text-transform: uppercase;'
 		logo.appendChild(logoText)
 
+		const stylesForMenuItem = 'cursor: pointer; margin: 19px 0 0 0; padding: 10px 50px; font-size: 28px; text-transform: uppercase; border: 2px solid #000000; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;'
 		const nav = document.createElement('div')
 		nav.style.cssText = 'display: flex; flex-direction: column; align-items: center;  margin: 20px 0 0 0;'
 		this.modal.appendChild(nav)
+
 		const navTitle = document.createElement('div')
 		navTitle.innerText = 'Menu'
 		navTitle.style.cssText = 'font-size: 48px; text-transform: uppercase;'
 		nav.appendChild(navTitle)
+
 		const navNewGame = document.createElement('div')
 		navNewGame.innerText = 'New game'
-		navNewGame.style.cssText = 'cursor: pointer; margin: 26px 0 0 0; padding: 10px 50px; font-size: 28px; text-transform: uppercase; border: 2px solid #000000; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;'
+		navNewGame.style.cssText = stylesForMenuItem
+		navNewGame.addEventListener('click', this.newGame)
 		nav.appendChild(navNewGame)
+
 		const navSaveGame = document.createElement('div')
 		navSaveGame.innerText = 'Save game'
-		navSaveGame.style.cssText = 'cursor: pointer; margin: 19px 0 0 0; padding: 10px 50px; font-size: 28px; text-transform: uppercase; border: 2px solid #000000; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;'
+		navSaveGame.style.cssText = stylesForMenuItem
+		navSaveGame.addEventListener('click', this.saveGame)
 		nav.appendChild(navSaveGame)
+
 		const navLoadGame = document.createElement('div')
 		navLoadGame.innerText = 'Load game'
-		navLoadGame.style.cssText = 'cursor: pointer; margin: 19px 0 0 0; padding: 10px 50px; font-size: 28px; text-transform: uppercase; border: 2px solid #000000; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;'
+		navLoadGame.style.cssText = stylesForMenuItem
+		navLoadGame.addEventListener('click', this.loadGame)
 		nav.appendChild(navLoadGame)
+
 		const navSettings = document.createElement('div')
 		navSettings.innerText = 'Settings'
-		navSettings.style.cssText = 'cursor: pointer; margin: 19px 0 0 0; padding: 10px 50px; font-size: 28px; text-transform: uppercase; border: 2px solid #000000; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;'
+		navSettings.style.cssText = stylesForMenuItem
+		navSettings.addEventListener('click', this.settings)
 		nav.appendChild(navSettings)
+
 		const navRules = document.createElement('div')
 		navRules.innerText = 'Rules'
-		navRules.style.cssText = 'cursor: pointer; margin: 19px 0 0 0; padding: 10px 50px; font-size: 28px; text-transform: uppercase; border: 2px solid #000000; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;'
+		navRules.style.cssText = stylesForMenuItem
+		navRules.addEventListener('click', this.rules)
 		nav.appendChild(navRules)
 	};
 	createSettingsModal() {
@@ -67,4 +79,25 @@ export class Modal {
 		this.burger.classList.remove("active");
 		this.modal.classList.remove("active");
 	};
+	newGame = () => {
+		this.makeUnactive();
+		console.log('New game')
+	}
+	saveGame = () => {
+		this.makeUnactive();
+		console.log('Save game')
+	}
+	loadGame = () => {
+		this.makeUnactive();
+		console.log('Load game')
+	}
+	settings = () => {
+		this.makeUnactive();
+		console.log('Settings')
+	}
+	rules = () => {
+		this.makeUnactive();
+		console.log('Rules')
+	}
+
 };

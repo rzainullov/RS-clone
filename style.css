@@ -214,10 +214,38 @@ body {
 
 /* Styles for footer */
 .footer {
-  height: 100px;
+	padding: 0 20px;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
   background-color: black;
 }
-
+.footer__logo {
+  cursor: pointer;
+  height: 50px;
+  width: 140px;
+  background: url("img/logo-rsschool.png") no-repeat center center/cover;
+}
+.footer__year {
+	font-size: 20px;
+	color: #b9b9b9;
+}
+.footer__githubs a {
+	text-transform: uppercase;
+  color: #b9b9b9;
+}
+.footer__githubs a:hover {
+  color: #ffffff;
+}
+@media (max-width: 470px) {
+	.footer__logo {
+		display: none;
+	}
+	.footer__year {
+		display: none;
+	}
+}
 /* Styles for modal */
 .modal {
 	width: 100%;
