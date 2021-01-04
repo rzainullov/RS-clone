@@ -1,2 +1,5 @@
+import {Settings} from "./scripts/settings.js";
+new Settings().initSettings();
+
 import {Modal} from "./scripts/modal.js";
-const modalObject = new Modal().createMainModal();
+new Modal().createMainModal();

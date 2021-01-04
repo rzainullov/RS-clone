@@ -1,3 +1,6 @@
+import {Language} from "./language.js";
+const language = new Language();
+
 export class Modal {
 	constructor() {
 		this.burger = document.querySelector("[data-burger]");
@@ -12,7 +15,9 @@ export class Modal {
 		this.modal = document.querySelector("[data-modal]");
 		this.nav = document.querySelectorAll("[data-modal-nav]");
 	};
-	createMainModal() {
+	createMainModal = () => {
+		const isEnglish = JSON.parse(localStorage.getItem('settings')).find(el => el.settingName === "language").settingValue === "English";
+		const wordsForMainModal = isEnglish ? language.mainModalEnglish : language.mainModalRussia
 		this.modal.innerHTML = '';
 		const logo = document.createElement('div')
 		logo.style.cssText = 'width: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center;'
@@ -21,56 +26,58 @@ export class Modal {
 		logoImg.style.cssText = 'width: 103px; height: 106px; background: url("img/logo.png") no-repeat center center/cover;'
 		logo.appendChild(logoImg)
 		const logoText = document.createElement('div')
-		logoText.innerText = 'Poker'
+
+		logoText.innerText = wordsForMainModal[0]
 		logoText.style.cssText = 'font-size: 36px; text-transform: uppercase;'
 		logo.appendChild(logoText)
 
-		const stylesForMenuItem = 'cursor: pointer; margin: 19px 0 0 0; padding: 10px 50px; font-size: 28px; text-transform: uppercase; border: 2px solid #000000; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;'
 		const nav = document.createElement('div')
 		nav.style.cssText = 'display: flex; flex-direction: column; align-items: center;  margin: 20px 0 0 0;'
 		this.modal.appendChild(nav)
 
 		const navTitle = document.createElement('div')
-		navTitle.innerText = 'Menu'
+		navTitle.innerText = wordsForMainModal[1]
 		navTitle.style.cssText = 'font-size: 48px; text-transform: uppercase;'
 		nav.appendChild(navTitle)
 
 		const navNewGame = document.createElement('div')
-		navNewGame.innerText = 'New game'
-		navNewGame.style.cssText = stylesForMenuItem
+		navNewGame.innerText = wordsForMainModal[2]
+		navNewGame.classList.add('modal-main__item')
 		navNewGame.addEventListener('click', this.newGame)
 		nav.appendChild(navNewGame)
 
 		const navSaveGame = document.createElement('div')
-		navSaveGame.innerText = 'Save game'
-		navSaveGame.style.cssText = stylesForMenuItem
+		navSaveGame.innerText = wordsForMainModal[3]
+		navSaveGame.classList.add('modal-main__item')
 		navSaveGame.addEventListener('click', this.saveGame)
 		nav.appendChild(navSaveGame)
 
 		const navLoadGame = document.createElement('div')
-		navLoadGame.innerText = 'Load game'
-		navLoadGame.style.cssText = stylesForMenuItem
+		navLoadGame.innerText = wordsForMainModal[4]
+		navLoadGame.classList.add('modal-main__item')
 		navLoadGame.addEventListener('click', this.loadGame)
 		nav.appendChild(navLoadGame)
 
 		const navSettings = document.createElement('div')
-		navSettings.innerText = 'Settings'
-		navSettings.style.cssText = stylesForMenuItem
-		navSettings.addEventListener('click', this.settings)
+		navSettings.innerText = wordsForMainModal[5]
+		navSettings.classList.add('modal-main__item')
+		navSettings.addEventListener('click', this.createSettingsModal)
 		nav.appendChild(navSettings)
 
 		const navRules = document.createElement('div')
-		navRules.innerText = 'Rules'
-		navRules.style.cssText = stylesForMenuItem
-		navRules.addEventListener('click', this.rules)
+		navRules.innerText = wordsForMainModal[6]
+		navRules.classList.add('modal-main__item')
+		navRules.addEventListener('click', this.createRulesModal)
 		nav.appendChild(navRules)
 	};
-	createSettingsModal() {
+
+	createSettingsModal = () => {
 		this.modal.innerHTML = '';
 	};
-	createRulesModal() {
+	createRulesModal = () => {
 		this.modal.innerHTML = '';
 	};
+
 	makeActive() {
 		this.burger.classList.add("active");
 		this.modal.classList.add("active");
@@ -79,6 +86,7 @@ export class Modal {
 		this.burger.classList.remove("active");
 		this.modal.classList.remove("active");
 	};
+
 	newGame = () => {
 		this.makeUnactive();
 		console.log('New game')
@@ -91,13 +99,4 @@ export class Modal {
 		this.makeUnactive();
 		console.log('Load game')
 	}
-	settings = () => {
-		this.makeUnactive();
-		console.log('Settings')
-	}
-	rules = () => {
-		this.makeUnactive();
-		console.log('Rules')
-	}
-
 };
