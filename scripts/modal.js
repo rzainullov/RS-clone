@@ -1,5 +1,5 @@
 import {Language} from "./language.js";
-const language = new Language();
+const languageObject = new Language();
 
 export class Modal {
 	constructor() {
@@ -13,167 +13,6 @@ export class Modal {
 			}
 		});
 		this.modal = document.querySelector("[data-modal]");
-		this.nav = document.querySelectorAll("[data-modal-nav]");
-	};
-	createMainModal = () => {
-		const isEnglish = JSON.parse(localStorage.getItem('settings')).find(el => el.settingName === "language").settingValue === "English";
-		const wordsForMainModal = isEnglish ? language.mainModalEnglish : language.mainModalRussia
-
-		this.modal.innerHTML = '';
-		const logo = document.createElement('div')
-		logo.style.cssText = 'width: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center;'
-		this.modal.appendChild(logo)
-		const logoImg = document.createElement('div')
-		logoImg.style.cssText = 'width: 103px; height: 106px; background: url("img/logo.png") no-repeat center center/cover;'
-		logo.appendChild(logoImg)
-		const logoText = document.createElement('div')
-		logoText.innerText = wordsForMainModal[0]
-		logoText.style.cssText = 'font-size: 36px; text-transform: uppercase;'
-		logo.appendChild(logoText)
-
-		const nav = document.createElement('div')
-		nav.style.cssText = 'display: flex; flex-direction: column; align-items: center;  margin: 20px 0 0 0;'
-		this.modal.appendChild(nav)
-
-		const navTitle = document.createElement('div')
-		navTitle.innerText = wordsForMainModal[1]
-		navTitle.style.cssText = 'font-size: 48px; text-transform: uppercase;'
-		nav.appendChild(navTitle)
-
-		const navNewGame = document.createElement('div')
-		navNewGame.innerText = wordsForMainModal[2]
-		navNewGame.classList.add('modal-main__item')
-		navNewGame.addEventListener('click', this.newGame)
-		nav.appendChild(navNewGame)
-
-		const navSaveGame = document.createElement('div')
-		navSaveGame.innerText = wordsForMainModal[3]
-		navSaveGame.classList.add('modal-main__item')
-		navSaveGame.addEventListener('click', this.saveGame)
-		nav.appendChild(navSaveGame)
-
-		const navLoadGame = document.createElement('div')
-		navLoadGame.innerText = wordsForMainModal[4]
-		navLoadGame.classList.add('modal-main__item')
-		navLoadGame.addEventListener('click', this.loadGame)
-		nav.appendChild(navLoadGame)
-
-		const navSettings = document.createElement('div')
-		navSettings.innerText = wordsForMainModal[5]
-		navSettings.classList.add('modal-main__item')
-		navSettings.addEventListener('click', this.createSettingsModal)
-		nav.appendChild(navSettings)
-
-		const navRules = document.createElement('div')
-		navRules.innerText = wordsForMainModal[6]
-		navRules.classList.add('modal-main__item')
-		navRules.addEventListener('click', this.createRulesModal)
-		nav.appendChild(navRules)
-	};
-
-	createSettingsModal = () => {
-		const isEnglish = JSON.parse(localStorage.getItem('settings')).find(el => el.settingName === "language").settingValue === "English";
-		const wordsForSettingsModal = isEnglish ? language.settingsModalEnglish : language.settingsModalRussia
-
-		const settingsObject = JSON.parse(localStorage.getItem('settings'))
-		console.log(settingsObject)
-
-		this.modal.innerHTML = '';
-		const logo = document.createElement('div')
-		logo.style.cssText = 'width: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center;'
-		this.modal.appendChild(logo)
-		const logoImg = document.createElement('div')
-		logoImg.style.cssText = 'width: 103px; height: 106px; background: url("img/logo.png") no-repeat center center/cover;'
-		logo.appendChild(logoImg)
-		const logoText = document.createElement('div')
-		logoText.innerText = wordsForSettingsModal[0]
-		logoText.style.cssText = 'font-size: 36px; text-transform: uppercase;'
-		logo.appendChild(logoText)
-
-		const nav = document.createElement('div')
-		nav.style.cssText = 'display: flex; flex-direction: column; align-items: center;  margin: 20px 0 0 0;'
-		this.modal.appendChild(nav)
-
-		const navTitle = document.createElement('div')
-		navTitle.innerText = wordsForSettingsModal[1]
-		navTitle.style.cssText = 'font-size: 48px; text-transform: uppercase;'
-		nav.appendChild(navTitle)
-
-		//** Settings */
-		const navPlayers = document.createElement('div')
-		let playersCount = settingsObject.find(el => el.settingName === "playersCount").settingValue
-		navPlayers.innerText = `${wordsForSettingsModal[2]} ${playersCount}`
-		navPlayers.classList.add('modal-settings__item')
-		navPlayers.addEventListener('click', () => {
-			playersCount = (playersCount % 4) + 1
-			navPlayers.innerText = `${wordsForSettingsModal[2]} ${playersCount}`
-		})
-		nav.appendChild(navPlayers)
-
-		const navLanguage = document.createElement('div')
-		let languageType = settingsObject.find(el => el.settingName === "language").settingValue
-		navLanguage.innerText = `${wordsForSettingsModal[3]} ${languageType}`
-		navLanguage.classList.add('modal-settings__item')
-		navLanguage.addEventListener('click', () => {
-			if (languageType === "English") {
-				languageType = "Русский"
-			} else {
-				languageType = "English"
-			}
-			navLanguage.innerText = `${wordsForSettingsModal[3]} ${languageType}`
-		})
-		nav.appendChild(navLanguage)
-
-		const navSound = document.createElement('div')
-		let soundType = settingsObject.find(el => el.settingName === "sound").settingValue
-		navSound.innerText = `${wordsForSettingsModal[4]} ${soundType}`
-		navSound.classList.add('modal-settings__item')
-		navSound.addEventListener('click', () => {
-			if (soundType === "on") {
-				soundType = "off"
-			} else {
-				soundType = "on"
-			}
-			navSound.innerText = `${wordsForSettingsModal[4]} ${soundType}`
-		})
-		nav.appendChild(navSound)
-
-		const navColor = document.createElement('div')
-		let colorType = settingsObject.find(el => el.settingName === "color").settingValue
-		navColor.innerText = `${wordsForSettingsModal[5]} ${colorType}`
-		navColor.classList.add('modal-settings__item')
-		navColor.addEventListener('click', () => {
-			if (colorType === "red") {
-				colorType = "green"
-			} else {
-				colorType = "red"
-			}
-			navColor.innerText = `${wordsForSettingsModal[5]} ${colorType}`
-		})
-		nav.appendChild(navColor)
-
-		/** Save and back */
-		const saveSettings = document.createElement('div')
-		saveSettings.innerText = wordsForSettingsModal[6]
-		saveSettings.classList.add('modal-settings__btn')
-		saveSettings.addEventListener('click', () => {
-			settingsObject.find(el => el.settingName === "playersCount").settingValue = playersCount
-			settingsObject.find(el => el.settingName === "language").settingValue = languageType
-			settingsObject.find(el => el.settingName === "sound").settingValue = soundType
-			settingsObject.find(el => el.settingName === "color").settingValue = colorType
-			localStorage.setItem('settings', JSON.stringify(settingsObject))
-			this.createSettingsModal()
-		})
-		nav.appendChild(saveSettings)
-
-		const backSettings = document.createElement('div')
-		backSettings.innerText = wordsForSettingsModal[7]
-		backSettings.classList.add('modal-settings__btn')
-		backSettings.addEventListener('click', this.createMainModal)
-		nav.appendChild(backSettings)
-	};
-	createRulesModal = () => {
-		this.modal.innerHTML = '';
 	};
 
 	makeActive() {
@@ -183,6 +22,193 @@ export class Modal {
 	makeUnactive() {
 		this.burger.classList.remove("active");
 		this.modal.classList.remove("active");
+	};
+	isEnglish() {
+		const isEnglish = JSON.parse(localStorage.getItem('settings')).find(el => el.settingName === "language").settingValue === "English";
+		return isEnglish;
+	}
+
+	createMainModal = () => {
+		this.modal.innerHTML = '';
+		const wordsArr = this.isEnglish() ? languageObject.mainModalEnglish : languageObject.mainModalRussia
+
+		/** Logo */
+		const logo = document.createElement('div')
+		logo.classList.add('modal__logo')
+		this.modal.appendChild(logo)
+		const logoImg = document.createElement('div')
+		logoImg.classList.add('modal__img')
+		logo.appendChild(logoImg)
+		const logoText = document.createElement('div')
+		logoText.innerText = wordsArr[0]
+		logoText.classList.add('modal__text')
+		logo.appendChild(logoText)
+
+		/** Wrap */
+		const wrap = document.createElement('div')
+		wrap.classList.add('modal__wrap')
+		this.modal.appendChild(wrap)
+
+		const wrapTitle = document.createElement('div')
+		wrapTitle.innerText = wordsArr[1]
+		wrapTitle.classList.add('modal__title')
+		wrap.appendChild(wrapTitle)
+
+		const wrapNewGame = document.createElement('div')
+		wrapNewGame.innerText = wordsArr[2]
+		wrapNewGame.classList.add('modal__item')
+		wrapNewGame.addEventListener('click', this.newGame)
+		wrap.appendChild(wrapNewGame)
+
+		const wrapSaveGame = document.createElement('div')
+		wrapSaveGame.innerText = wordsArr[3]
+		wrapSaveGame.classList.add('modal__item')
+		wrapSaveGame.addEventListener('click', this.saveGame)
+		wrap.appendChild(wrapSaveGame)
+
+		const wrapLoadGame = document.createElement('div')
+		wrapLoadGame.innerText = wordsArr[4]
+		wrapLoadGame.classList.add('modal__item')
+		wrapLoadGame.addEventListener('click', this.loadGame)
+		wrap.appendChild(wrapLoadGame)
+
+		const wrapSettings = document.createElement('div')
+		wrapSettings.innerText = wordsArr[5]
+		wrapSettings.classList.add('modal__item')
+		wrapSettings.addEventListener('click', this.createSettingsModal)
+		wrap.appendChild(wrapSettings)
+
+		const wrapRules = document.createElement('div')
+		wrapRules.innerText = wordsArr[6]
+		wrapRules.classList.add('modal__item')
+		wrapRules.addEventListener('click', this.createRulesModal)
+		wrap.appendChild(wrapRules)
+	};
+
+	createSettingsModal = () => {
+		this.modal.innerHTML = '';
+		const wordsArr = this.isEnglish() ? languageObject.settingsModalEnglish : languageObject.settingsModalRussia
+		const settingsObject = JSON.parse(localStorage.getItem('settings'))
+
+		/** Logo */
+		const logo = document.createElement('div')
+		logo.classList.add('modal__logo')
+		this.modal.appendChild(logo)
+		const logoImg = document.createElement('div')
+		logoImg.classList.add('modal__img')
+		logo.appendChild(logoImg)
+		const logoText = document.createElement('div')
+		logoText.innerText = wordsArr[0]
+		logoText.classList.add('modal__text')
+		logo.appendChild(logoText)
+
+		/** Wrap */
+		const wrap = document.createElement('div')
+		wrap.style.cssText = 'display: flex; flex-direction: column; align-items: center;  margin: 20px 0 0 0;'
+		this.modal.appendChild(wrap)
+
+		const wrapTitle = document.createElement('div')
+		wrapTitle.innerText = wordsArr[1]
+		wrapTitle.classList.add('modal__title')
+		wrap.appendChild(wrapTitle)
+
+		/** Settings */
+		const wrapPlayers = document.createElement('div')
+		let playersCount = settingsObject.find(el => el.settingName === "playersCount").settingValue
+		wrapPlayers.innerText = `${wordsArr[2]} ${playersCount}`
+		wrapPlayers.classList.add('modal__text-item')
+		wrapPlayers.addEventListener('click', () => {
+			playersCount = (playersCount % 4) + 1
+			wrapPlayers.innerText = `${wordsArr[2]} ${playersCount}`
+		})
+		wrap.appendChild(wrapPlayers)
+
+		const wrapLanguage = document.createElement('div')
+		let languageType = settingsObject.find(el => el.settingName === "language").settingValue
+		wrapLanguage.innerText = `${wordsArr[3]} ${languageType}`
+		wrapLanguage.classList.add('modal__text-item')
+		wrapLanguage.addEventListener('click', () => {
+			languageType = languageType === "English" ? "Русский" : "English"
+			wrapLanguage.innerText = `${wordsArr[3]} ${languageType}`
+		})
+		wrap.appendChild(wrapLanguage)
+
+		const wrapSound = document.createElement('div')
+		let soundType = settingsObject.find(el => el.settingName === "sound").settingValue
+		wrapSound.innerText = `${wordsArr[4]} ${soundType}`
+		wrapSound.classList.add('modal__text-item')
+		wrapSound.addEventListener('click', () => {
+			soundType = soundType === "on" ? "off" : "on"
+			wrapSound.innerText = `${wordsArr[4]} ${soundType}`
+		})
+		wrap.appendChild(wrapSound)
+
+		const wrapColor = document.createElement('div')
+		let colorType = settingsObject.find(el => el.settingName === "color").settingValue
+		wrapColor.innerText = `${wordsArr[5]} ${colorType}`
+		wrapColor.classList.add('modal__text-item')
+		wrapColor.addEventListener('click', () => {
+			colorType = colorType === "red" ? "green" : "red"
+			wrapColor.innerText = `${wordsArr[5]} ${colorType}`
+		})
+		wrap.appendChild(wrapColor)
+
+		/** Save and back */
+		const saveSettingsBtn = document.createElement('div')
+		saveSettingsBtn.innerText = wordsArr[6]
+		saveSettingsBtn.classList.add('modal__item')
+		saveSettingsBtn.addEventListener('click', () => {
+			settingsObject.find(el => el.settingName === "playersCount").settingValue = playersCount
+			settingsObject.find(el => el.settingName === "language").settingValue = languageType
+			settingsObject.find(el => el.settingName === "sound").settingValue = soundType
+			settingsObject.find(el => el.settingName === "color").settingValue = colorType
+			localStorage.setItem('settings', JSON.stringify(settingsObject))
+			this.createSettingsModal()
+		})
+		wrap.appendChild(saveSettingsBtn)
+
+		const backSettings = document.createElement('div')
+		backSettings.innerText = wordsArr[7]
+		backSettings.classList.add('modal__item')
+		backSettings.addEventListener('click', this.createMainModal)
+		wrap.appendChild(backSettings)
+	};
+	createRulesModal = () => {
+		this.modal.innerHTML = '';
+		const wordsArr = this.isEnglish() ? languageObject.rulesModalEnglish : languageObject.rulesModalRussia
+
+		/** Logo */
+		const logo = document.createElement('div')
+		logo.classList.add('modal__logo')
+		this.modal.appendChild(logo)
+		const logoImg = document.createElement('div')
+		logoImg.classList.add('modal__img')
+		logo.appendChild(logoImg)
+		const logoText = document.createElement('div')
+		logoText.innerText = wordsArr[0]
+		logoText.classList.add('modal__text')
+		logo.appendChild(logoText)
+
+		/** Wrap */
+		const wrap = document.createElement('div')
+		wrap.style.cssText = 'display: flex; flex-direction: column; align-items: center;  margin: 20px 0 0 0;'
+		this.modal.appendChild(wrap)
+
+		const wrapTitle = document.createElement('div')
+		wrapTitle.innerText = wordsArr[1]
+		wrapTitle.classList.add('modal__title')
+		wrap.appendChild(wrapTitle)
+
+		const wrapText = document.createElement('textarea')
+		wrapText.innerText = wordsArr[2]
+		wrapText.classList.add('modal-rules__textarea')
+		wrap.appendChild(wrapText)
+
+		const backSettings = document.createElement('div')
+		backSettings.innerText = wordsArr[3]
+		backSettings.classList.add('modal__item')
+		backSettings.addEventListener('click', this.createMainModal)
+		wrap.appendChild(backSettings)
 	};
 
 	newGame = () => {

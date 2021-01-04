@@ -1,38 +1,85 @@
-.modal-main__item {
+/* Styles for modal */
+.modal {
+	width: 100%;
+	height: calc(100% - 120px);
+	position: absolute;
+	top: -100%;
+	background: url("../img/modal-img.png") no-repeat center center/cover;
+	transition: top 0.5s ease;
+	z-index: 50;
+}
+.modal.active {
+	top: 50px;
+}
+
+/** Styles for logo */
+.modal__logo {
+	width: 150px; 
+	display: flex; 
+	flex-direction: column; 
+	align-items: center; 
+	justify-content: center;
+}
+.modal__img {
+	width: 103px; 
+	height: 106px; 
+	background: url("../img/logo.png") no-repeat center center/cover;
+}
+.modal__text {
+	font-size: 36px; 
+	text-transform: uppercase;
+}
+@media (max-height: 700px) {
+	.modal__logo {
+		display: none;
+	}
+}
+
+/** Styles for modal wrap */
+.modal__wrap {
+	display: flex; 
+	flex-direction: column; 
+	align-items: center;  
+	margin: 20px 0 0 0;
+}
+.modal__title {
+	font-size: 48px; 
+	text-transform: uppercase;
+}
+.modal__item {
 	cursor: pointer;
-	margin: 19px 0 0 0;
-	padding: 10px 50px;
+	width: 300px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 10px 0 0 0;
+	padding: 10px 0;
 	font-size: 28px;
 	text-transform: uppercase;
 	border: 2px solid #000000;
 	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;
 }
-.modal-main__item:hover {
+.modal__item:hover {
 	background-color: black;
 	color: white;
 }
-.modal-settings__item {
+.modal__text-item {
 	cursor: pointer;
 	padding: 10px 50px;
 	font-size: 28px;
 	text-transform: uppercase;
 	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;
 }
-.modal-settings__item:hover {
+.modal__text-item:hover {
 	background-color: black;
 	color: white;
 }
 
-.modal-settings__btn {
-	cursor: pointer;
-	margin: 19px 0 0 0;
-	padding: 10px 50px;
-	font-size: 28px;
-	text-transform: uppercase;
-	border: 2px solid #000000;
-	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); border-radius: 15px;
-}
-.modal-settings__btn:hover {
-	background-color: black;
-	color: white;
+/* Styles for rules */
+.modal-rules__textarea {
+	resize: none;
+	width: 80%;
+	height: 250px;
+	height: calc(100vh - 500px);
+	padding: 20px;
 }
