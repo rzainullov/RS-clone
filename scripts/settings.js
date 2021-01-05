@@ -5,7 +5,10 @@ export class Settings {
 			{ settingName: "playersNames", settingValue: ["Player1", "Player2", "Player3", "Player4"] },
 			{ settingName: "language", settingValue: "English" },
 			{ settingName: "sound", settingValue: "on" },
-			{ settingName: "color", settingValue: "red" }
+			{ settingName: "color", settingValue: "red" },
+			{ settingName: "currentPlayer", settingValue:"Player1" },
+			{ settingName: "currentCombination", settingValue: null },
+			{ settingName: "currentRound", settingValue: "1" }
 		]
 	}
 	initSettings() {
