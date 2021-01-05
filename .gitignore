@@ -102,8 +102,3 @@ dist
 
 # TernJS port file
 .tern-port
-
-# Linter
-.eslintrc.js
-package-lock.json
-package.json
