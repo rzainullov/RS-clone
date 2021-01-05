@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Sitecreator143/RS-clone#readme",
   "devDependencies": {
     "eslint": "^7.17.0"
+  },
+  "dependencies": {
+    "eslint-config-airbnb-base": "^14.2.1"
   }
 }
