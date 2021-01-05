@@ -1,0 +1,22 @@
+{
+  "name": "rs-clone",
+  "version": "1.0.0",
+  "description": "Team task. App developed by HTML, CSS, JavaScript  \r Deploy: https://sitecreator143.github.io/RS-clone",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sitecreator143/RS-clone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sitecreator143/RS-clone/issues"
+  },
+  "homepage": "https://github.com/Sitecreator143/RS-clone#readme",
+  "devDependencies": {
+    "eslint": "^7.17.0"
+  }
+}
