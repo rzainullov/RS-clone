@@ -181,7 +181,7 @@ body {
 /* Styles for main */
 .main {
   height: calc(100% - 120px);
-  background-color: gray;
+  background: url("img/modal-img.png") no-repeat center center/cover;
 }
 
 /* Styles for footer */

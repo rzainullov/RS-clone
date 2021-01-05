@@ -120,8 +120,28 @@ export class Modal {
 		wrapPlayers.addEventListener('click', () => {
 			playersCount = (playersCount % 4) + 1
 			wrapPlayers.innerText = `${wordsArr[2]} ${playersCount}`
+			createAreaForNames()
 		})
 		wrap.appendChild(wrapPlayers)
+
+		const wrapNames = document.createElement('div')
+		wrapNames.classList.add('modal__wrap-names')
+		wrap.appendChild(wrapNames)
+		const playersNames = settingsObject.find(el => el.settingName === "playersNames").settingValue
+		const createAreaForNames = () => {
+			wrapNames.innerHTML = ''
+			const namesInput = []
+			for (let i = 0; i < +playersCount; i += 1) {
+				namesInput[i] = document.createElement('textarea')
+				namesInput[i].classList.add("modal__names")
+				namesInput[i].value = playersNames[i]
+				namesInput[i].addEventListener('blur', () => {
+					playersNames[i] = namesInput[i].value
+				})
+				wrapNames.appendChild(namesInput[i])
+			}
+		}
+		createAreaForNames()
 
 		const wrapLanguage = document.createElement('div')
 		let languageType = settingsObject.find(el => el.settingName === "language").settingValue
@@ -159,6 +179,7 @@ export class Modal {
 		saveSettingsBtn.classList.add('modal__item')
 		saveSettingsBtn.addEventListener('click', () => {
 			settingsObject.find(el => el.settingName === "playersCount").settingValue = playersCount
+			settingsObject.find(el => el.settingName === "playersNames").settingValue = playersNames
 			settingsObject.find(el => el.settingName === "language").settingValue = languageType
 			settingsObject.find(el => el.settingName === "sound").settingValue = soundType
 			settingsObject.find(el => el.settingName === "color").settingValue = colorType
