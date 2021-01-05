@@ -74,6 +74,19 @@
 	background-color: black;
 	color: white;
 }
+.modal__names {
+	resize: none;
+	height: 40px;
+	width: 100px;
+	padding: 10px;
+	margin: 5px;
+	border-radius: 10px;
+}
+.modal__wrap-names {
+	display: flex; 
+	flex-wrap: wrap; 
+	justify-content: center;
+}
 
 /* Styles for rules */
 .modal-rules__textarea {
