@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 export class Settings {
   constructor() {
     this.initialSettings = [

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 export class Language {
   constructor() {
     this.mainModalEnglish = ["Poker", "Menu", "New game", "Save game", "Load game", "Settings", "Rules"];
