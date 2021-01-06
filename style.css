@@ -143,39 +143,39 @@ body {
 
 /* Styles for header */
 .header {
-	height: 50px;
-	padding: 0 20px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background-color: black;
-	z-index: 60;
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  z-index: 60;
 }
 .burger {
-	cursor: pointer;
-	height: 20px;
-	width: 30px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  cursor: pointer;
+  height: 20px;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .burger__strip {
-	position: relative;
-	width: 100%;
-	height: 2px;
-	background-color: gray;
-	transition: all 0.3s ease;
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background-color: gray;
+  transition: all 0.3s ease;
 }
 .burger.active > .burger__strip:nth-child(1) {
-	top: 9px;
-	transform: rotate(45deg);
+  top: 9px;
+  transform: rotate(45deg);
 }
 .burger.active > .burger__strip:nth-child(2) {
-	display: none;
+  display: none;
 }
 .burger.active > .burger__strip:nth-child(3) {
-	top: -9px;
-	transform: rotate(-45deg);
+  top: -9px;
+  transform: rotate(-45deg);
 }
 
 /* Styles for main */
@@ -186,11 +186,11 @@ body {
 
 /* Styles for footer */
 .footer {
-	padding: 0 20px;
-	height: 70px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+  padding: 0 20px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: black;
   z-index: 40;
 }
@@ -205,22 +205,22 @@ body {
 	color: #b9b9b9;
 }
 .footer__githubs p {
-	text-transform: uppercase;
-	color: #b9b9b9;
-	margin: 0;
+  text-transform: uppercase;
+  color: #b9b9b9;
+  margin: 0;
 }
 .footer__githubs a {
-	text-transform: uppercase;
-	color: #b9b9b9;
+  text-transform: uppercase;
+  color: #b9b9b9;
 }
 .footer__githubs a:hover {
   color: #ffffff;
 }
 @media (max-width: 470px) {
-	.footer__logo {
-		display: none;
-	}
-	.footer__year {
-		display: none;
-	}
+  .footer__logo {
+    display: none;
+  }
+  .footer__year {
+    display: none;
+  }
 }
