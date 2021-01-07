@@ -47,13 +47,7 @@ export class Modal {
 
   getWords(typeOfModal) {
     const languageType = this.localSettings.find(el => el.settingName === "language").settingValue;
-    if (languageType === "English") {
-      this.wordsArr = languages[0][typeOfModal];
-    } else if (languageType === "Russian") {
-      this.wordsArr = languages[1][typeOfModal];
-    } else {
-      this.wordsArr = languages[2][typeOfModal];
-    }
+    this.wordsArr = languages.find(el => el.langName === languageType)[typeOfModal];
     return this;
   }
 
