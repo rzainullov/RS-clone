@@ -237,7 +237,7 @@ export class Modal {
     wrap.appendChild(wrapTitle);
 
     const wrapText = document.createElement("textarea");
-    wrapText.innerText = wordsArr[2];
+    wrapText.value = wordsArr[2];
     wrapText.classList.add("modal-rules__textarea");
     wrap.appendChild(wrapText);
 
