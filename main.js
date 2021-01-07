@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { Settings } from "./scripts/settings.js";
 new Settings().initSettings();
 
