@@ -47,14 +47,14 @@ export class Modal {
   }
 
   isEnglish() {
-    this.isEn = this.localSettings.find(el => el.settingName === "language").settingValue === "English";
+    this.isEnglishLanguage = this.localSettings.find(el => el.settingName === "language").settingValue === "English";
     return this;
   }
 
   createMainModal() {
     this.modal.innerHTML = "";
     this.isEnglish();
-    const wordsArr = this.isEn ? (
+    const wordsArr = this.isEnglishLanguage ? (
       languageObject.mainModalEnglish
     ) : (
       languageObject.mainModalRussia
@@ -117,7 +117,7 @@ export class Modal {
   createSettingsModal() {
     this.modal.innerHTML = "";
     this.isEnglish();
-    const wordsArr = this.isEn ? (
+    const wordsArr = this.isEnglishLanguage ? (
       languageObject.settingsModalEnglish
     ) : (
       languageObject.settingsModalRussia
