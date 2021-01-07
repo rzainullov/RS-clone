@@ -1,6 +1,3 @@
 /* eslint-disable linebreak-style */
-import { Settings } from "./scripts/settings.js";
-new Settings().initSettings();
-
 import { Modal } from "./scripts/modal.js";
-new Modal().createMainModal();
+new Modal().getSettings().setSettings().createMainModal();

@@ -26,14 +26,35 @@ export class Modal {
     this.modal.classList.remove("active");
   }
 
+  getSettings() {
+    if (localStorage.getItem("settings") === null) {
+      this.localSettings = [
+        { settingName: "playersCount", settingValue: "4" },
+        { settingName: "playersNames", settingValue: ["Player1", "Player2", "Player3", "Player4"] },
+        { settingName: "language", settingValue: "English" },
+        { settingName: "sound", settingValue: "on" },
+        { settingName: "color", settingValue: "red" }
+      ];
+    } else {
+      this.localSettings = JSON.parse(localStorage.getItem("settings"));
+    }
+    return this;
+  }
+
+  setSettings() {
+    localStorage.setItem("settings", JSON.stringify(this.localSettings));
+    return this;
+  }
+
   isEnglish() {
-    this.isEn = JSON.parse(localStorage.getItem("settings")).find(el => el.settingName === "language").settingValue === "English";
-    return this.isEn;
+    this.isEnglishLanguage = this.localSettings.find(el => el.settingName === "language").settingValue === "English";
+    return this;
   }
 
   createMainModal() {
     this.modal.innerHTML = "";
-    const wordsArr = this.isEnglish() ? (
+    this.isEnglish();
+    const wordsArr = this.isEnglishLanguage ? (
       languageObject.mainModalEnglish
     ) : (
       languageObject.mainModalRussia
@@ -90,16 +111,17 @@ export class Modal {
     wrapRules.classList.add("modal__item");
     wrapRules.addEventListener("click", this.createRulesModal.bind(this));
     wrap.appendChild(wrapRules);
+    return this;
   }
 
   createSettingsModal() {
     this.modal.innerHTML = "";
-    const wordsArr = this.isEnglish() ? (
+    this.isEnglish();
+    const wordsArr = this.isEnglishLanguage ? (
       languageObject.settingsModalEnglish
     ) : (
       languageObject.settingsModalRussia
     );
-    const settingsObject = JSON.parse(localStorage.getItem("settings"));
 
     /** Logo */
     const logo = document.createElement("div");
@@ -125,7 +147,7 @@ export class Modal {
 
     /** Settings */
     const wrapPlayers = document.createElement("div");
-    let playersCount = settingsObject.find(el => el.settingName === "playersCount").settingValue;
+    let playersCount = this.localSettings.find(el => el.settingName === "playersCount").settingValue;
     wrapPlayers.innerText = `${wordsArr[2]} ${playersCount}`;
     wrapPlayers.classList.add("modal__text-item");
     wrap.appendChild(wrapPlayers);
@@ -133,7 +155,7 @@ export class Modal {
     const wrapNames = document.createElement("div");
     wrapNames.classList.add("modal__wrap-names");
     wrap.appendChild(wrapNames);
-    const playersNames = settingsObject.find(el => el.settingName === "playersNames").settingValue;
+    const playersNames = this.localSettings.find(el => el.settingName === "playersNames").settingValue;
     const createAreaForNames = () => {
       wrapNames.innerHTML = "";
       const namesInput = [];
@@ -151,36 +173,40 @@ export class Modal {
     wrapPlayers.addEventListener("click", () => {
       playersCount = (playersCount % 4) + 1;
       wrapPlayers.innerText = `${wordsArr[2]} ${playersCount}`;
+      this.localSettings.find(el => el.settingName === "playersCount").settingValue = playersCount;
       createAreaForNames();
     });
 
     const wrapLanguage = document.createElement("div");
-    let languageType = settingsObject.find(el => el.settingName === "language").settingValue;
+    let languageType = this.localSettings.find(el => el.settingName === "language").settingValue;
     wrapLanguage.innerText = `${wordsArr[3]} ${languageType}`;
     wrapLanguage.classList.add("modal__text-item");
     wrapLanguage.addEventListener("click", () => {
       languageType = languageType === "English" ? "Русский" : "English";
       wrapLanguage.innerText = `${wordsArr[3]} ${languageType}`;
+      this.localSettings.find(el => el.settingName === "language").settingValue = languageType;
     });
     wrap.appendChild(wrapLanguage);
 
     const wrapSound = document.createElement("div");
-    let soundType = settingsObject.find(el => el.settingName === "sound").settingValue;
+    let soundType = this.localSettings.find(el => el.settingName === "sound").settingValue;
     wrapSound.innerText = `${wordsArr[4]} ${soundType}`;
     wrapSound.classList.add("modal__text-item");
     wrapSound.addEventListener("click", () => {
       soundType = soundType === "on" ? "off" : "on";
       wrapSound.innerText = `${wordsArr[4]} ${soundType}`;
+      this.localSettings.find(el => el.settingName === "sound").settingValue = soundType;
     });
     wrap.appendChild(wrapSound);
 
     const wrapColor = document.createElement("div");
-    let colorType = settingsObject.find(el => el.settingName === "color").settingValue;
+    let colorType = this.localSettings.find(el => el.settingName === "color").settingValue;
     wrapColor.innerText = `${wordsArr[5]} ${colorType}`;
     wrapColor.classList.add("modal__text-item");
     wrapColor.addEventListener("click", () => {
       colorType = colorType === "red" ? "green" : "red";
       wrapColor.innerText = `${wordsArr[5]} ${colorType}`;
+      this.localSettings.find(el => el.settingName === "color").settingValue = colorType;
     });
     wrap.appendChild(wrapColor);
 
@@ -189,12 +215,8 @@ export class Modal {
     saveSettingsBtn.innerText = wordsArr[6];
     saveSettingsBtn.classList.add("modal__item");
     saveSettingsBtn.addEventListener("click", () => {
-      settingsObject.find(el => el.settingName === "playersCount").settingValue = playersCount;
-      settingsObject.find(el => el.settingName === "playersNames").settingValue = playersNames;
-      settingsObject.find(el => el.settingName === "language").settingValue = languageType;
-      settingsObject.find(el => el.settingName === "sound").settingValue = soundType;
-      settingsObject.find(el => el.settingName === "color").settingValue = colorType;
-      localStorage.setItem("settings", JSON.stringify(settingsObject));
+      this.setSettings();
+      this.getSettings();
       this.createSettingsModal();
     });
     wrap.appendChild(saveSettingsBtn);
@@ -202,8 +224,12 @@ export class Modal {
     const backSettings = document.createElement("div");
     backSettings.innerText = wordsArr[7];
     backSettings.classList.add("modal__item");
-    backSettings.addEventListener("click", this.createMainModal.bind(this));
+    backSettings.addEventListener("click", () => {
+      this.getSettings();
+      this.createMainModal();
+    });
     wrap.appendChild(backSettings);
+    return this;
   }
 
   createRulesModal() {
@@ -246,6 +272,7 @@ export class Modal {
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", this.createMainModal.bind(this));
     wrap.appendChild(backSettings);
+    return this;
   }
 
   newGame() {
