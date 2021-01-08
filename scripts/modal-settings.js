@@ -1,18 +1,19 @@
 /* eslint-disable linebreak-style */
 import { Modal } from "./modal.js";
+import { ModalMain } from "./modal-main.js";
 export class ModalSettings extends Modal {
   createSettingsModal() {
-    this.modal.innerHTML = "";
+    this.clearModalArea();
     this.getWords("settingModal");
     this.createLogo();
     this.createWrap();
-  
+
     const wrapPlayers = document.createElement("div");
     let playersCount = this.localSettings.playerSettings.find(el => el.settingName === "playersCount").settingValue;
     wrapPlayers.innerText = `${this.wordsArr[2]} ${playersCount}`;
     wrapPlayers.classList.add("modal__text-item");
     this.wrap.appendChild(wrapPlayers);
-  
+
     const wrapNames = document.createElement("div");
     wrapNames.classList.add("modal__wrap-names");
     this.wrap.appendChild(wrapNames);
@@ -37,7 +38,7 @@ export class ModalSettings extends Modal {
       this.localSettings.playerSettings.find(el => el.settingName === "playersCount").settingValue = playersCount;
       createAreaForNames();
     });
-  
+
     const wrapLanguage = document.createElement("div");
     let languageType = this.localSettings.playerSettings.find(el => el.settingName === "language").settingValue;
     wrapLanguage.innerText = `${this.wordsArr[3]} ${languageType}`;
@@ -54,7 +55,7 @@ export class ModalSettings extends Modal {
       this.localSettings.playerSettings.find(el => el.settingName === "language").settingValue = languageType;
     });
     this.wrap.appendChild(wrapLanguage);
-  
+
     const wrapSound = document.createElement("div");
     let soundType = this.localSettings.playerSettings.find(el => el.settingName === "sound").settingValue;
     wrapSound.innerText = `${this.wordsArr[4]} ${soundType}`;
@@ -65,7 +66,7 @@ export class ModalSettings extends Modal {
       this.localSettings.playerSettings.find(el => el.settingName === "sound").settingValue = soundType;
     });
     this.wrap.appendChild(wrapSound);
-  
+
     const wrapColor = document.createElement("div");
     let colorType = this.localSettings.playerSettings.find(el => el.settingName === "color").settingValue;
     wrapColor.innerText = `${this.wordsArr[5]} ${colorType}`;
@@ -76,24 +77,21 @@ export class ModalSettings extends Modal {
       this.localSettings.playerSettings.find(el => el.settingName === "color").settingValue = colorType;
     });
     this.wrap.appendChild(wrapColor);
-  
-  
+
     const saveSettingsBtn = document.createElement("div");
     saveSettingsBtn.innerText = this.wordsArr[6];
     saveSettingsBtn.classList.add("modal__item");
     saveSettingsBtn.addEventListener("click", () => {
       this.setSettings();
-      this.getSettings();
-      this.createSettingsModal();
+      new ModalSettings().getSettings().createSettingsModal();
     });
     this.wrap.appendChild(saveSettingsBtn);
-  
+
     const backSettings = document.createElement("div");
     backSettings.innerText = this.wordsArr[7];
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", () => {
-      this.getSettings();
-      this.createMainModal();
+      new ModalMain().getSettings().createMainModal();
     });
     this.wrap.appendChild(backSettings);
     return this;

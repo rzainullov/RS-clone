@@ -1,8 +1,12 @@
 /* eslint-disable linebreak-style */
 import { Modal } from "./modal.js";
+import { ModalSettings } from "./modal-settings.js";
+import { ModalLogin } from "./modal-login.js";
+import { ModalRules } from "./modal-rules.js";
+
 export class ModalMain extends Modal {
   createMainModal() {
-    this.modal.innerHTML = "";
+    this.clearModalArea();
     this.getWords("mainModal");
     this.createLogo();
     this.createWrap();
@@ -28,19 +32,25 @@ export class ModalMain extends Modal {
     const wrapSettings = document.createElement("div");
     wrapSettings.innerText = this.wordsArr[5];
     wrapSettings.classList.add("modal__item");
-    wrapSettings.addEventListener("click", this.createSettingsModal.bind(this));
+    wrapSettings.addEventListener("click", () => {
+      new ModalSettings().getSettings().createSettingsModal();
+    });
     this.wrap.appendChild(wrapSettings);
 
     const wrapLogin = document.createElement("div");
     wrapLogin.innerText = this.wordsArr[6];
     wrapLogin.classList.add("modal__item");
-    wrapLogin.addEventListener("click", this.createLoginModal.bind(this));
+    wrapLogin.addEventListener("click", () => {
+      new ModalLogin().getSettings().createLoginModal();
+    });
     this.wrap.appendChild(wrapLogin);
 
     const wrapRules = document.createElement("div");
     wrapRules.innerText = this.wordsArr[7];
     wrapRules.classList.add("modal__item");
-    wrapRules.addEventListener("click", this.createRulesModal.bind(this));
+    wrapRules.addEventListener("click", () => {
+      new ModalRules().getSettings().createRulesModal();
+    });
     this.wrap.appendChild(wrapRules);
     return this;
   }

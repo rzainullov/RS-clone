@@ -1,8 +1,9 @@
-// eslint-disable-next-line linebreak-style
+/* eslint-disable linebreak-style */
 import { Modal } from "./modal.js";
+import { ModalMain } from "./modal-main.js";
 export class ModalRules extends Modal {
   createRulesModal() {
-    this.modal.innerHTML = "";
+    this.clearModalArea();
     this.getWords("rulesModal");
     this.createLogo();
     this.createWrap();
@@ -15,7 +16,9 @@ export class ModalRules extends Modal {
     const backSettings = document.createElement("div");
     backSettings.innerText = this.wordsArr[3];
     backSettings.classList.add("modal__item");
-    backSettings.addEventListener("click", this.createMainModal.bind(this));
+    backSettings.addEventListener("click", () => {
+      new ModalMain().getSettings().createMainModal();
+    });
     this.wrap.appendChild(backSettings);
     return this;
   }

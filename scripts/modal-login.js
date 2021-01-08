@@ -6,26 +6,41 @@ export class ModalLogin extends Modal {
     super();
   }
 
+  onNewLogin() {
+    console.log("Create new user");
+    /** Добавление пользователя и пароля в БД */
+    new ModalMain()
+      .deleteSettings()
+      .getSettings()
+      .setSettings()
+      .createMainModal();
+    return this;
+  }
+
+  onVerifiedLogin() {
+    console.log("login successfully");
+    /** Подгрузка настроек в локал сторадж */
+    new ModalMain().getSettings().setSettings().createMainModal();
+    return this;
+  }
+
+  onUnveifiedLogin() {
+    console.log("login failed");
+    new ModalLogin().getSettings().createLoginModal();
+    return this;
+  }
+
   pushLogin(login, passWord) {
     const haveUser = true;
     const isPasswordCorrect = true;
     if (haveUser) {
       if (isPasswordCorrect) {
-        console.log("login successfully");
-        /** Подгрузка настроек в локал сторадж */
-        new ModalMain().getSettings().createMainModal();
+        this.onVerifiedLogin();
       } else {
-        console.log("login failed");
-        new ModalLogin().getSettings().createLoginModal();
+        this.onUnveifiedLogin();
       }
     } else {
-      console.log("Create new user");
-      /** Добавление пользователя и пароля в БД */
-      new ModalMain()
-        .deleteSettings()
-        .getSettings()
-        .setSettings()
-        .createMainModal();
+      this.onNewLogin();
     }
     return this;
   }
@@ -36,7 +51,7 @@ export class ModalLogin extends Modal {
   }
 
   createLoginModal() {
-    this.modal.innerHTML = "";
+    this.clearModalArea();
     this.getWords("loginModal");
     this.createLogo();
     this.createWrap();

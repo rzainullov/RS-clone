@@ -50,6 +50,10 @@ export class Modal {
     return this;
   }
 
+  clearModalArea() {
+    this.modal.innerHTML = "";
+  }
+
   getWords(typeOfModal) {
     const languageType = this.localSettings.playerSettings.find(el => el.settingName === "language").settingValue;
     this.wordsArr = languages.find(el => el.langName === languageType)[typeOfModal];
