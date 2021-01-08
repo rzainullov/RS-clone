@@ -88,6 +88,14 @@
 	justify-content: center;
 }
 
+/** Styles for login */
+.modal__input {
+	margin-top: 10px;
+	width: 300px;
+	padding: 10px;
+	border-radius: 10px;
+}
+
 /* Styles for rules */
 .modal-rules__textarea {
 	resize: none;
