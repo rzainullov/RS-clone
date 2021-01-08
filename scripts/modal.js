@@ -51,11 +51,7 @@ export class Modal {
     return this;
   }
 
-  createMainModal() {
-    this.modal.innerHTML = "";
-    this.getWords("mainModal");
-
-    /** Logo */
+  createLogo() {
     const logo = document.createElement("div");
     logo.classList.add("modal__logo");
     this.modal.appendChild(logo);
@@ -66,85 +62,111 @@ export class Modal {
     logoText.innerText = this.wordsArr[0];
     logoText.classList.add("modal__text");
     logo.appendChild(logoText);
+  }
 
-    /** Wrap */
-    const wrap = document.createElement("div");
-    wrap.classList.add("modal__wrap");
-    this.modal.appendChild(wrap);
+  createWrap() {
+    this.wrap = document.createElement("div");
+    this.wrap.classList.add("modal__wrap");
+    this.modal.appendChild(this.wrap);
 
     const wrapTitle = document.createElement("div");
     wrapTitle.innerText = this.wordsArr[1];
     wrapTitle.classList.add("modal__title");
-    wrap.appendChild(wrapTitle);
+    this.wrap.appendChild(wrapTitle);
+  }
+
+  logIn(login, passWord) {
+    console.log(login);
+    console.log(passWord);
+    this.getSettings();
+    this.createMainModal();
+  }
+
+  createLoginModal() {
+    this.modal.innerHTML = "";
+    this.getWords("loginModal");
+    this.createLogo();
+    this.createWrap();
+
+    const login = document.createElement("input");
+    login.classList.add("modal__input");
+    login.placeholder = this.wordsArr[2];
+    this.wrap.appendChild(login);
+
+    const passWord = document.createElement("input");
+    passWord.classList.add("modal__input");
+    passWord.placeholder = this.wordsArr[3];
+    passWord.setAttribute("type", "password");
+    this.wrap.appendChild(passWord);
+
+    const enter = document.createElement("div");
+    enter.innerText = this.wordsArr[4];
+    enter.classList.add("modal__item");
+    enter.addEventListener("click", () => {
+      this.logIn(login.value, passWord.value);
+    });
+    this.wrap.appendChild(enter);
+  }
+
+  createMainModal() {
+    this.modal.innerHTML = "";
+    this.getWords("mainModal");
+    this.createLogo();
+    this.createWrap();
 
     const wrapNewGame = document.createElement("div");
     wrapNewGame.innerText = this.wordsArr[2];
     wrapNewGame.classList.add("modal__item");
     wrapNewGame.addEventListener("click", this.newGame.bind(this));
-    wrap.appendChild(wrapNewGame);
+    this.wrap.appendChild(wrapNewGame);
 
     const wrapSaveGame = document.createElement("div");
     wrapSaveGame.innerText = this.wordsArr[3];
     wrapSaveGame.classList.add("modal__item");
     wrapSaveGame.addEventListener("click", this.saveGame.bind(this));
-    wrap.appendChild(wrapSaveGame);
+    this.wrap.appendChild(wrapSaveGame);
 
     const wrapLoadGame = document.createElement("div");
     wrapLoadGame.innerText = this.wordsArr[4];
     wrapLoadGame.classList.add("modal__item");
     wrapLoadGame.addEventListener("click", this.loadGame.bind(this));
-    wrap.appendChild(wrapLoadGame);
+    this.wrap.appendChild(wrapLoadGame);
 
     const wrapSettings = document.createElement("div");
     wrapSettings.innerText = this.wordsArr[5];
     wrapSettings.classList.add("modal__item");
     wrapSettings.addEventListener("click", this.createSettingsModal.bind(this));
-    wrap.appendChild(wrapSettings);
+    this.wrap.appendChild(wrapSettings);
+
+    const wrapLogin = document.createElement("div");
+    wrapLogin.innerText = this.wordsArr[6];
+    wrapLogin.classList.add("modal__item");
+    wrapLogin.addEventListener("click", this.createLoginModal.bind(this));
+    this.wrap.appendChild(wrapLogin);
 
     const wrapRules = document.createElement("div");
-    wrapRules.innerText = this.wordsArr[6];
+    wrapRules.innerText = this.wordsArr[7];
     wrapRules.classList.add("modal__item");
     wrapRules.addEventListener("click", this.createRulesModal.bind(this));
-    wrap.appendChild(wrapRules);
+    this.wrap.appendChild(wrapRules);
     return this;
   }
 
   createSettingsModal() {
     this.modal.innerHTML = "";
     this.getWords("settingModal");
+    this.createLogo();
+    this.createWrap();
 
-    /** Logo */
-    const logo = document.createElement("div");
-    logo.classList.add("modal__logo");
-    this.modal.appendChild(logo);
-    const logoImg = document.createElement("div");
-    logoImg.classList.add("modal__img");
-    logo.appendChild(logoImg);
-    const logoText = document.createElement("div");
-    logoText.innerText = this.wordsArr[0];
-    logoText.classList.add("modal__text");
-    logo.appendChild(logoText);
-
-    /** Wrap */
-    const wrap = document.createElement("div");
-    wrap.style.cssText = "display: flex; flex-direction: column; align-items: center;  margin: 20px 0 0 0;";
-    this.modal.appendChild(wrap);
-
-    const wrapTitle = document.createElement("div");
-    wrapTitle.innerText = this.wordsArr[1];
-    wrapTitle.classList.add("modal__title");
-    wrap.appendChild(wrapTitle);
-
-    /** Settings */
     const wrapPlayers = document.createElement("div");
     let playersCount = this.localSettings.find(el => el.settingName === "playersCount").settingValue;
     wrapPlayers.innerText = `${this.wordsArr[2]} ${playersCount}`;
     wrapPlayers.classList.add("modal__text-item");
-    wrap.appendChild(wrapPlayers);
+    this.wrap.appendChild(wrapPlayers);
 
     const wrapNames = document.createElement("div");
     wrapNames.classList.add("modal__wrap-names");
-    wrap.appendChild(wrapNames);
+    this.wrap.appendChild(wrapNames);
     const playersNames = this.localSettings.find(el => el.settingName === "playersNames").settingValue;
     const createAreaForNames = () => {
       wrapNames.innerHTML = "";
@@ -182,7 +204,7 @@ export class Modal {
       wrapLanguage.innerText = `${this.wordsArr[3]} ${languageType}`;
       this.localSettings.find(el => el.settingName === "language").settingValue = languageType;
     });
-    wrap.appendChild(wrapLanguage);
+    this.wrap.appendChild(wrapLanguage);
 
     const wrapSound = document.createElement("div");
     let soundType = this.localSettings.find(el => el.settingName === "sound").settingValue;
@@ -193,7 +215,7 @@ export class Modal {
       wrapSound.innerText = `${this.wordsArr[4]} ${soundType}`;
       this.localSettings.find(el => el.settingName === "sound").settingValue = soundType;
     });
-    wrap.appendChild(wrapSound);
+    this.wrap.appendChild(wrapSound);
 
     const wrapColor = document.createElement("div");
     let colorType = this.localSettings.find(el => el.settingName === "color").settingValue;
@@ -204,7 +226,7 @@ export class Modal {
       wrapColor.innerText = `${this.wordsArr[5]} ${colorType}`;
       this.localSettings.find(el => el.settingName === "color").settingValue = colorType;
     });
-    wrap.appendChild(wrapColor);
+    this.wrap.appendChild(wrapColor);
 
     /** Save and back */
     const saveSettingsBtn = document.createElement("div");
@@ -215,7 +237,7 @@ export class Modal {
       this.getSettings();
       this.createSettingsModal();
     });
-    wrap.appendChild(saveSettingsBtn);
+    this.wrap.appendChild(saveSettingsBtn);
 
     const backSettings = document.createElement("div");
     backSettings.innerText = this.wordsArr[7];
@@ -224,46 +246,26 @@ export class Modal {
       this.getSettings();
       this.createMainModal();
     });
-    wrap.appendChild(backSettings);
+    this.wrap.appendChild(backSettings);
     return this;
   }
 
   createRulesModal() {
     this.modal.innerHTML = "";
     this.getWords("rulesModal");
-
-    /** Logo */
-    const logo = document.createElement("div");
-    logo.classList.add("modal__logo");
-    this.modal.appendChild(logo);
-    const logoImg = document.createElement("div");
-    logoImg.classList.add("modal__img");
-    logo.appendChild(logoImg);
-    const logoText = document.createElement("div");
-    logoText.innerText = this.wordsArr[0];
-    logoText.classList.add("modal__text");
-    logo.appendChild(logoText);
-
-    /** Wrap */
-    const wrap = document.createElement("div");
-    wrap.style.cssText = "display: flex; flex-direction: column; align-items: center;  margin: 20px 0 0 0;";
-    this.modal.appendChild(wrap);
-
-    const wrapTitle = document.createElement("div");
-    wrapTitle.innerText = this.wordsArr[1];
-    wrapTitle.classList.add("modal__title");
-    wrap.appendChild(wrapTitle);
+    this.createLogo();
+    this.createWrap();
 
     const wrapText = document.createElement("textarea");
     wrapText.value = this.wordsArr[2];
     wrapText.classList.add("modal-rules__textarea");
-    wrap.appendChild(wrapText);
+    this.wrap.appendChild(wrapText);
 
     const backSettings = document.createElement("div");
     backSettings.innerText = this.wordsArr[3];
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", this.createMainModal.bind(this));
-    wrap.appendChild(backSettings);
+    this.wrap.appendChild(backSettings);
     return this;
   }
 
