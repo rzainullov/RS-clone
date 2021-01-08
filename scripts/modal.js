@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 import { languages } from "./language.js";
+import { DB } from "../main.js";
 
 export class Modal {
   constructor() {
@@ -25,9 +26,8 @@ export class Modal {
     this.modal.classList.remove("active");
   }
 
-  getSettings() {
-    this.localSettings = JSON.parse(localStorage.getItem("settings"))
-    || {
+  getSettings(settings) {
+    this.localSettings = settings || {
       playerName: "Player1",
       playerSettings: [
         { settingName: "playersCount", settingValue: "4" },
@@ -41,14 +41,13 @@ export class Modal {
   }
 
   setSettings() {
-    localStorage.setItem("settings", JSON.stringify(this.localSettings));
+    DB.saveSettings(this.localSettings);
     return this;
   }
 
   logIn(login, passWord) {
     console.log(login);
     console.log(passWord);
-    this.getSettings();
     this.createMainModal();
   }
 
@@ -240,7 +239,6 @@ export class Modal {
     saveSettingsBtn.classList.add("modal__item");
     saveSettingsBtn.addEventListener("click", () => {
       this.setSettings();
-      this.getSettings();
       this.createSettingsModal();
     });
     this.wrap.appendChild(saveSettingsBtn);
@@ -249,7 +247,6 @@ export class Modal {
     backSettings.innerText = this.wordsArr[7];
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", () => {
-      this.getSettings();
       this.createMainModal();
     });
     this.wrap.appendChild(backSettings);
