@@ -46,7 +46,7 @@ export class ModalLogin extends Modal {
   }
 
   pushBack() {
-    new ModalMain().getSettings().createMainModal();
+    new ModalMain().getSettings().setSettings().createMainModal();
     return this;
   }
 
