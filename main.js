@@ -1,3 +1,3 @@
 /* eslint-disable linebreak-style */
-import { Modal } from "./scripts/modal.js";
-new Modal().getSettings().setSettings().createLoginModal();
+import { ModalLogin } from "./scripts/modal-login.js";
+new ModalLogin().getSettings().setSettings().createLoginModal();
