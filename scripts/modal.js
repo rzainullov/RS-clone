@@ -45,6 +45,13 @@ export class Modal {
     return this;
   }
 
+  logIn(login, passWord) {
+    console.log(login);
+    console.log(passWord);
+    this.getSettings();
+    this.createMainModal();
+  }
+
   getWords(typeOfModal) {
     const languageType = this.localSettings.find(el => el.settingName === "language").settingValue;
     this.wordsArr = languages.find(el => el.langName === languageType)[typeOfModal];
@@ -75,13 +82,6 @@ export class Modal {
     this.wrap.appendChild(wrapTitle);
   }
 
-  logIn(login, passWord) {
-    console.log(login);
-    console.log(passWord);
-    this.getSettings();
-    this.createMainModal();
-  }
-
   createLoginModal() {
     this.modal.innerHTML = "";
     this.getWords("loginModal");
@@ -106,6 +106,12 @@ export class Modal {
       this.logIn(login.value, passWord.value);
     });
     this.wrap.appendChild(enter);
+
+    const back = document.createElement("div");
+    back.innerText = this.wordsArr[5];
+    back.classList.add("modal__item");
+    back.addEventListener("click", this.createMainModal.bind(this));
+    this.wrap.appendChild(back);
   }
 
   createMainModal() {
