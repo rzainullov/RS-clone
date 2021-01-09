@@ -33,10 +33,8 @@ export class ModalLogin extends Modal {
   }
 
   pushLogin(login, passWord) {
-    const haveUser = true;
-    const isPasswordCorrect = true;
-    if (haveUser) {
-      if (isPasswordCorrect) {
+    if (login === "user") {
+      if (passWord === "pass") {
         this.onVerifiedLogin();
       } else {
         this.onUnveifiedLogin();
