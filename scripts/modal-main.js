@@ -15,19 +15,25 @@ export class ModalMain extends Modal {
     const wrapNewGame = document.createElement("div");
     wrapNewGame.innerText = this.wordsArr[2];
     wrapNewGame.classList.add("modal__item");
-    wrapNewGame.addEventListener("click", this.newGame.bind(this));
+    wrapNewGame.addEventListener("click", () => {
+      this.newGame();
+    });
     this.wrap.appendChild(wrapNewGame);
 
     const wrapSaveGame = document.createElement("div");
     wrapSaveGame.innerText = this.wordsArr[3];
     wrapSaveGame.classList.add("modal__item");
-    wrapSaveGame.addEventListener("click", this.saveGame.bind(this));
+    wrapSaveGame.addEventListener("click", () => {
+      this.saveGame();
+    });
     this.wrap.appendChild(wrapSaveGame);
 
     const wrapLoadGame = document.createElement("div");
     wrapLoadGame.innerText = this.wordsArr[4];
     wrapLoadGame.classList.add("modal__item");
-    wrapLoadGame.addEventListener("click", this.loadGame.bind(this));
+    wrapLoadGame.addEventListener("click", () => {
+      this.loadGame();
+    });
     this.wrap.appendChild(wrapLoadGame);
 
     const wrapSettings = document.createElement("div");

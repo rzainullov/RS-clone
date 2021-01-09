@@ -73,14 +73,16 @@ export class ModalLogin extends Modal {
     enter.innerText = this.wordsArr[4];
     enter.classList.add("modal__item");
     enter.addEventListener("click", () => {
-      this.pushLogin(login.value, passWord.value).bind(this);
+      this.pushLogin(login.value, passWord.value);
     });
     this.wrap.appendChild(enter);
 
     const back = document.createElement("div");
     back.innerText = this.wordsArr[5];
     back.classList.add("modal__item");
-    back.addEventListener("click", this.pushBack.bind(this));
+    back.addEventListener("click", () => {
+      this.pushBack();
+    });
     this.wrap.appendChild(back);
     return this;
   }

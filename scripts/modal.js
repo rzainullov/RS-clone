@@ -15,7 +15,6 @@ export class Modal {
       } else {
         this.makeActive();
       }
-      console.log(this);
     };
     this.burger.addEventListener("click", pushBurger.bind(this));
     return this;
