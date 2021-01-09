@@ -3,16 +3,22 @@ import { languages } from "./language.js";
 
 export class Modal {
   constructor() {
+    this.modal = document.querySelector("[data-modal]");
     this.burger = document.querySelector("[data-burger]");
-    this.burger.addEventListener("click", () => {
+  }
+
+  addBurgerPush() {
+    const pushBurger = () => {
       const isModalActive = this.burger.classList.contains("active");
       if (isModalActive) {
         this.makeUnactive();
       } else {
         this.makeActive();
       }
-    });
-    this.modal = document.querySelector("[data-modal]");
+      console.log(this);
+    };
+    this.burger.addEventListener("click", pushBurger.bind(this));
+    return this;
   }
 
   makeActive() {

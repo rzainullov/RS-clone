@@ -1,8 +1,9 @@
 /* eslint-disable linebreak-style */
+import { modalTypesObject } from "../main.js";
 import { Modal } from "./modal.js";
 import { ModalMain } from "./modal-main.js";
 export class ModalSettings extends Modal {
-  createSettingsModal() {
+  createModalSettings() {
     this.clearModalArea();
     this.getWords("settingModal");
     this.createLogo();
@@ -83,7 +84,7 @@ export class ModalSettings extends Modal {
     saveSettingsBtn.classList.add("modal__item");
     saveSettingsBtn.addEventListener("click", () => {
       this.setSettings();
-      new ModalSettings().getSettings().createSettingsModal();
+      modalTypesObject.modalSettings = new ModalSettings().getSettings().createModalSettings();
     });
     this.wrap.appendChild(saveSettingsBtn);
 
@@ -91,7 +92,7 @@ export class ModalSettings extends Modal {
     backSettings.innerText = this.wordsArr[7];
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", () => {
-      new ModalMain().getSettings().createMainModal();
+      modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
     });
     this.wrap.appendChild(backSettings);
     return this;

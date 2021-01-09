@@ -1,11 +1,12 @@
 /* eslint-disable linebreak-style */
+import { modalTypesObject } from "../main.js";
 import { Modal } from "./modal.js";
 import { ModalSettings } from "./modal-settings.js";
 import { ModalLogin } from "./modal-login.js";
 import { ModalRules } from "./modal-rules.js";
 
 export class ModalMain extends Modal {
-  createMainModal() {
+  createModalMain() {
     this.clearModalArea();
     this.getWords("mainModal");
     this.createLogo();
@@ -33,7 +34,7 @@ export class ModalMain extends Modal {
     wrapSettings.innerText = this.wordsArr[5];
     wrapSettings.classList.add("modal__item");
     wrapSettings.addEventListener("click", () => {
-      new ModalSettings().getSettings().createSettingsModal();
+      modalTypesObject.modalSettings = new ModalSettings().getSettings().createModalSettings();
     });
     this.wrap.appendChild(wrapSettings);
 
@@ -41,7 +42,7 @@ export class ModalMain extends Modal {
     wrapLogin.innerText = this.wordsArr[6];
     wrapLogin.classList.add("modal__item");
     wrapLogin.addEventListener("click", () => {
-      new ModalLogin().getSettings().createLoginModal();
+      modalTypesObject.modalLogin = new ModalLogin().getSettings().createModalLogin();
     });
     this.wrap.appendChild(wrapLogin);
 
@@ -49,24 +50,27 @@ export class ModalMain extends Modal {
     wrapRules.innerText = this.wordsArr[7];
     wrapRules.classList.add("modal__item");
     wrapRules.addEventListener("click", () => {
-      new ModalRules().getSettings().createRulesModal();
+      modalTypesObject.modalRules = new ModalRules().getSettings().createModalRules();
     });
     this.wrap.appendChild(wrapRules);
     return this;
   }
 
   newGame() {
-    this.makeUnactive();
+    modalTypesObject.modal.makeUnactive();
     console.log("New game");
+    return this;
   }
 
   saveGame() {
-    this.makeUnactive();
+    modalTypesObject.modal.makeUnactive();
     console.log("Save game");
+    return this;
   }
 
   loadGame() {
-    this.makeUnactive();
+    modalTypesObject.modal.makeUnactive();
     console.log("Load game");
+    return this;
   }
 }

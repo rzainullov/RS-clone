@@ -1,6 +1,8 @@
 /* eslint-disable linebreak-style */
+import { modalTypesObject } from "../main.js";
 import { Modal } from "./modal.js";
 import { ModalMain } from "./modal-main.js";
+
 export class ModalLogin extends Modal {
   constructor() {
     super();
@@ -9,24 +11,24 @@ export class ModalLogin extends Modal {
   onNewLogin() {
     console.log("Create new user");
     /** Добавление пользователя и пароля в БД */
-    new ModalMain()
+    modalTypesObject.modalMain = new ModalMain()
       .deleteSettings()
       .getSettings()
       .setSettings()
-      .createMainModal();
+      .createModalMain();
     return this;
   }
 
   onVerifiedLogin() {
     console.log("login successfully");
     /** Подгрузка настроек в локал сторадж */
-    new ModalMain().getSettings().setSettings().createMainModal();
+    modalTypesObject.modalMain = new ModalMain().getSettings().setSettings().createModalMain();
     return this;
   }
 
   onUnveifiedLogin() {
     console.log("login failed");
-    new ModalLogin().getSettings().createLoginModal();
+    modalTypesObject.modalLogin = new ModalLogin().getSettings().createModalLogin();
     return this;
   }
 
@@ -46,11 +48,11 @@ export class ModalLogin extends Modal {
   }
 
   pushBack() {
-    new ModalMain().getSettings().setSettings().createMainModal();
+    modalTypesObject.modalMain = new ModalMain().getSettings().setSettings().createModalMain();
     return this;
   }
 
-  createLoginModal() {
+  createModalLogin() {
     this.clearModalArea();
     this.getWords("loginModal");
     this.createLogo();
@@ -71,14 +73,15 @@ export class ModalLogin extends Modal {
     enter.innerText = this.wordsArr[4];
     enter.classList.add("modal__item");
     enter.addEventListener("click", () => {
-      this.pushLogin(login.value, passWord.value);
+      this.pushLogin(login.value, passWord.value).bind(this);
     });
     this.wrap.appendChild(enter);
 
     const back = document.createElement("div");
     back.innerText = this.wordsArr[5];
     back.classList.add("modal__item");
-    back.addEventListener("click", this.pushBack);
+    back.addEventListener("click", this.pushBack.bind(this));
     this.wrap.appendChild(back);
+    return this;
   }
 }
