@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import { modalTypesObject } from "../main.js";
+import { modalTypesObject } from "../../main.js";
 import { Modal } from "./modal.js";
 import { ModalSettings } from "./modal-settings.js";
 import { ModalLogin } from "./modal-login.js";

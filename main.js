@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
-import { ModalLogin } from "./scripts/modal-login.js";
-import { Modal } from "./scripts/modal.js";
+import { ModalLogin } from "./scripts/modal/modal-login.js";
+import { Modal } from "./scripts/modal/modal.js";
 export const modalTypesObject = {
   modal: {},
   modalLogin: {},

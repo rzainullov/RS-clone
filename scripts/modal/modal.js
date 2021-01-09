@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import { languages } from "./language.js";
+import { languages } from "../language.js";
 
 export class Modal {
   constructor() {
