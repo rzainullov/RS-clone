@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 import { languages } from "./language.js";
 import { DB } from "../main.js";
+import {initGame} from "./game/game.js";
 
 export class Modal {
   constructor() {
@@ -274,6 +275,7 @@ export class Modal {
 
   newGame() {
     this.makeUnactive();
+    initGame(this.localSettings.playerSettings);
     console.log("New game");
   }
 
