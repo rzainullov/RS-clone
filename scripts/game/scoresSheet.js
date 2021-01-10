@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
 
-
 import { game } from "./game.js";
 export var scoresSheet = null;
 export class ScoresSheet {
@@ -169,13 +168,15 @@ export class ScoresSheet {
   createMainColumn() {
     const mainColumn = document.createElement("div");
     mainColumn.setAttribute("data-ss-table-mc", "");
-    for (let prop in this.nameOfTableCells) {
+    const props = Object.keys(this.nameOfTableCells);
+    const propsText = Object.values(this.nameOfTableCells);
+    props.forEach((item, idx) => {
       const cell = document.createElement("div");
-      cell.setAttribute(`data-ss-table-mc-${prop}`, "");
-      cell.textContent = this.nameOfTableCells[prop];
+      cell.setAttribute(`data-ss-table-mc-${item}`, "");
+      cell.textContent = propsText[idx];
       cell.style.border = "1px solid black";
       mainColumn.appendChild(cell);
-    }
+    });
     this.mainColumn = mainColumn;
   }
 
@@ -190,23 +191,25 @@ export class ScoresSheet {
     this.players.forEach(player => {
       const playerColumn = document.createElement("div");
       playerColumn.setAttribute("data-player-column", `${player.playerName}`);
-      for (let prop in this.nameOfTableCells) {
+      const props = Object.keys(this.nameOfTableCells);
+      const propsText = Object.keys(this.nameOfTableCells);
+      props.forEach((item, idx) => {
         const cell = document.createElement("div");
-        cell.setAttribute("data-player-prop", `${prop}`);
-        if (this.nameOfTableCells[prop] !== "Player name" && this.nameOfTableCells[prop] !== "Total") {
+        cell.setAttribute("data-player-prop", `${item}`);
+        if (propsText[idx] !== "Player name" && propsText[idx] !== "Total") {
           cell.textContent = 0;
         } else {
-          if (this.nameOfTableCells[prop] === "Player name") {
+          if (propsText[idx] === "Player name") {
             cell.textContent = player.playerName;
           }
-          if (this.nameOfTableCells[prop] === "Total") {
+          if (propsText[idx] === "Total") {
             cell.textContent = player.playerTotal;
             cell.textContent = "";
           }
         }
         cell.style.border = "1px solid black";
         playerColumn.appendChild(cell);
-      }
+      });
       playerColumns.appendChild(playerColumn);
     });
     this.playerColumns = playerColumns;
@@ -238,9 +241,10 @@ export class ScoresSheet {
           }
         }
       });
-      for (let combo in this.combos) {
-        this.combos[combo] = "0";
-      }
+      const combos = Object.keys(this.combos);
+      combos.forEach((item) => {
+        this.combos[item] = "0";
+      });
       game.currentGameData.currentAttempt = 4;
       game.initNextAttempt();
       game.clearRollDiceArea();
