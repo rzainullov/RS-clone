@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
+
 
 import { game } from "./game.js";
 export var scoresSheet = null;
