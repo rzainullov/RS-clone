@@ -26,7 +26,7 @@ export class ModalLogin extends Modal {
     return this;
   }
 
-  onUnveifiedLogin() {
+  onUnverifiedLogin() {
     console.log("login failed");
     modalTypesObject.modalLogin = new ModalLogin().getSettings().createModalLogin();
     return this;
@@ -37,7 +37,7 @@ export class ModalLogin extends Modal {
       if (passWord === "pass") {
         this.onVerifiedLogin();
       } else {
-        this.onUnveifiedLogin();
+        this.onUnverifiedLogin();
       }
     } else {
       this.onNewLogin();

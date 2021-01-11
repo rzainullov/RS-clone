@@ -4,6 +4,7 @@ import { Modal } from "./modal.js";
 import { ModalSettings } from "./modal-settings.js";
 import { ModalLogin } from "./modal-login.js";
 import { ModalRules } from "./modal-rules.js";
+import { initGame } from "../game/game.js";
 
 export class ModalMain extends Modal {
   createModalMain() {
@@ -64,6 +65,7 @@ export class ModalMain extends Modal {
 
   newGame() {
     modalTypesObject.modal.makeUnactive();
+    initGame(this.localSettings.playerSettings);
     console.log("New game");
     return this;
   }
