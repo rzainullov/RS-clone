@@ -1,0 +1,12 @@
+.game_is_in_progress {
+	background: url("../img/modal-img.png") no-repeat center center/cover;
+	z-index: 50;
+}
+[data-main] {
+    overflow: hidden;
+}
+[data-current-round-indicator],
+[data-current-player-indicator],
+[data-current-attempt-indicator] {
+    font-size:17px;
+} 
