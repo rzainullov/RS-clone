@@ -1,5 +1,4 @@
 /* eslint-disable linebreak-style */
-
 export const languages = [
   {
     langName: "English",
