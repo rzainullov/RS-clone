@@ -196,10 +196,10 @@ export class ScoresSheet {
       props.forEach((item, idx) => {
         const cell = document.createElement("div");
         cell.setAttribute("data-player-prop", `${item}`);
-        if (propsText[idx] !== "Player name" && propsText[idx] !== "Total") {
+        if (propsText[idx] !== "player-name" && propsText[idx] !== "Total") {
           cell.textContent = 0;
         } else {
-          if (propsText[idx] === "Player name") {
+          if (propsText[idx] === "player-name") {
             cell.textContent = player.playerName;
           }
           if (propsText[idx] === "Total") {
