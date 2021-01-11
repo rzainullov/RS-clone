@@ -1,0 +1,27 @@
+[data-ss-table] {
+    position: absolute;
+    display: flex;
+    top:100px;
+    right: 50px;
+    /* width: 20vw; */
+    /* height:40vh; */
+    background-color: wheat;
+}
+[data-ss-table-mc] {
+    display:grid;
+    grid-template-rows: repeat(14,25px);
+    grid-template-columns: repeat(1,100px);
+}
+[data-player-columns] {
+    display: grid;
+}
+[data-player-column] {
+    display:grid;
+    grid-template-rows: repeat(14,25px);
+    grid-template-columns: repeat(1,70px);
+    text-align:center;
+    
+}
+.accepted {
+    color:red;
+}
