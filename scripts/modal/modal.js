@@ -31,6 +31,11 @@ export class Modal {
     this.modal.classList.remove("active");
   }
 
+  loadSettings() {
+    this.localSettings = JSON.parse(localStorage.getItem("settings"));
+    return this;
+  }
+
   getSettings(settings) {
     this.localSettings = settings || {
       playerName: "Player1",
@@ -46,6 +51,7 @@ export class Modal {
   }
 
   setSettings() {
+    localStorage.setItem("settings", JSON.stringify(this.localSettings));
     DB.saveSettings(this.localSettings);
     return this;
   }

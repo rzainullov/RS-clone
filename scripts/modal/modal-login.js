@@ -12,9 +12,7 @@ export class ModalLogin extends Modal {
     console.log("Create new user");
     /** Добавление пользователя и пароля в БД */
     modalTypesObject.modalMain = new ModalMain()
-      .deleteSettings()
-      .getSettings()
-      .setSettings()
+      .loadSettings()
       .createModalMain();
     return this;
   }
@@ -23,7 +21,7 @@ export class ModalLogin extends Modal {
     console.log("login successfully");
     /** Подгрузка настроек в локал сторадж */
     modalTypesObject.modalMain = new ModalMain()
-      .getSettings()
+      .loadSettings()
       .setSettings()
       .createModalMain();
     return this;
@@ -32,7 +30,7 @@ export class ModalLogin extends Modal {
   onUnverifiedLogin() {
     console.log("login failed");
     modalTypesObject.modalLogin = new ModalLogin()
-      .getSettings()
+      .loadSettings()
       .createModalLogin();
     return this;
   }
@@ -51,7 +49,7 @@ export class ModalLogin extends Modal {
   }
 
   pushBack() {
-    modalTypesObject.modalMain = new ModalMain().getSettings().setSettings().createModalMain();
+    modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
     return this;
   }
 

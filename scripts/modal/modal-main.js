@@ -41,7 +41,7 @@ export class ModalMain extends Modal {
     wrapSettings.innerText = this.wordsArr[5];
     wrapSettings.classList.add("modal__item");
     wrapSettings.addEventListener("click", () => {
-      modalTypesObject.modalSettings = new ModalSettings().getSettings().createModalSettings();
+      modalTypesObject.modalSettings = new ModalSettings().loadSettings().createModalSettings();
     });
     this.wrap.appendChild(wrapSettings);
 
@@ -49,7 +49,7 @@ export class ModalMain extends Modal {
     wrapLogin.innerText = this.wordsArr[6];
     wrapLogin.classList.add("modal__item");
     wrapLogin.addEventListener("click", () => {
-      modalTypesObject.modalLogin = new ModalLogin().getSettings().createModalLogin();
+      modalTypesObject.modalLogin = new ModalLogin().loadSettings().createModalLogin();
     });
     this.wrap.appendChild(wrapLogin);
 
@@ -57,7 +57,7 @@ export class ModalMain extends Modal {
     wrapRules.innerText = this.wordsArr[7];
     wrapRules.classList.add("modal__item");
     wrapRules.addEventListener("click", () => {
-      modalTypesObject.modalRules = new ModalRules().getSettings().createModalRules();
+      modalTypesObject.modalRules = new ModalRules().loadSettings().createModalRules();
     });
     this.wrap.appendChild(wrapRules);
     return this;

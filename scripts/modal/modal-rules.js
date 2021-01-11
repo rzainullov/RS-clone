@@ -18,7 +18,7 @@ export class ModalRules extends Modal {
     backSettings.innerText = this.wordsArr[3];
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", () => {
-      modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
+      modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
     });
     this.wrap.appendChild(backSettings);
     return this;
