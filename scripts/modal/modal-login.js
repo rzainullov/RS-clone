@@ -22,13 +22,18 @@ export class ModalLogin extends Modal {
   onVerifiedLogin() {
     console.log("login successfully");
     /** Подгрузка настроек в локал сторадж */
-    modalTypesObject.modalMain = new ModalMain().getSettings().setSettings().createModalMain();
+    modalTypesObject.modalMain = new ModalMain()
+      .getSettings()
+      .setSettings()
+      .createModalMain();
     return this;
   }
 
   onUnverifiedLogin() {
     console.log("login failed");
-    modalTypesObject.modalLogin = new ModalLogin().getSettings().createModalLogin();
+    modalTypesObject.modalLogin = new ModalLogin()
+      .getSettings()
+      .createModalLogin();
     return this;
   }
 

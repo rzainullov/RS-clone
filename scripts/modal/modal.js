@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 import { languages } from "../language.js";
+import { DB } from "../../main.js";
 
 export class Modal {
   constructor() {
@@ -30,9 +31,8 @@ export class Modal {
     this.modal.classList.remove("active");
   }
 
-  getSettings() {
-    this.localSettings = JSON.parse(localStorage.getItem("settings"))
-    || {
+  getSettings(settings) {
+    this.localSettings = settings || {
       playerName: "Player1",
       playerSettings: [
         { settingName: "playersCount", settingValue: "4" },
@@ -46,7 +46,7 @@ export class Modal {
   }
 
   setSettings() {
-    localStorage.setItem("settings", JSON.stringify(this.localSettings));
+    DB.saveSettings(this.localSettings);
     return this;
   }
 
