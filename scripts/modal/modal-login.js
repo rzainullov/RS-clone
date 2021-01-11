@@ -21,7 +21,7 @@ export class ModalLogin extends Modal {
     console.log("login successfully");
     /** Подгрузка настроек в локал сторадж */
     modalTypesObject.modalMain = new ModalMain()
-      .loadSettings()
+      .getSettings()
       .setSettings()
       .createModalMain();
     return this;
