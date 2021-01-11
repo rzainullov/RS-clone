@@ -7,13 +7,14 @@ export var game = null;
 
 export class Game {
   constructor(settings, savedGame = null) {
-    this.settings = settings;
-    this.players = settings[1].settingValue;
+    this.settings = settings.playerSettings;
+    this.players = this.settings[1].settingValue;
+    this.master = settings.playerName;
     this.savedGameData = savedGame;
     this.currentGameData = null;
     this.lastEmptyRollDiceArea = [];
     this.templateGameData = {
-      playerName: null,
+      playerName: this.master,
       playID: "1", //
       playBeginDateTime: Date.now(), // Кол-во мсек с 1 января 1970 года 00:00:00 по UTC
       playRound: 1,
@@ -86,7 +87,7 @@ export class Game {
         dice.style.background = "none";
       } else {
         dice.setAttribute(`data-roll-dice-area-${i + 1}`, `${randomNum}`);
-        dice.style.background = `url('/img/game/dice-${randomNum}.png') center / cover no-repeat `;
+        dice.style.background = `url('img/game/dice-${randomNum}.png') center / cover no-repeat `;
       }
     });
     if (this.findFirstFreeCellInDiceCells() !== (-1)) {
@@ -206,7 +207,7 @@ export class Game {
     const value = this.getDiceValueFromChosenDice(target);
     const diceCells = gameLobby.diceCells;
     diceCells.childNodes[freeCell].setAttribute(`data-dice-cell-${freeCell + 1}`, `${value}`);
-    diceCells.childNodes[freeCell].style.background = `url('/img/game/dice-${value}.png ') center / cover no-repeat `;
+    diceCells.childNodes[freeCell].style.background = `url('img/game/dice-${value}.png ') center / cover no-repeat `;
     this.getCurrentCombination();
   }
 
@@ -215,7 +216,7 @@ export class Game {
     const value = this.getDiceValueFromChosenDice(target);
     const rollDiceArea = document.querySelector(`[${freeCell}]`);
     rollDiceArea.attributes[0].nodeValue = value;
-    rollDiceArea.style.background = `url('/img/game/dice-${value}.png') center / cover no-repeat `;
+    rollDiceArea.style.background = `url('img/game/dice-${value}.png') center / cover no-repeat `;
     this.getCurrentCombination();
   }
 
