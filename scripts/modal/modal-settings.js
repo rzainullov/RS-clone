@@ -84,7 +84,7 @@ export class ModalSettings extends Modal {
     saveSettingsBtn.classList.add("modal__item");
     saveSettingsBtn.addEventListener("click", () => {
       this.setSettings();
-      modalTypesObject.modalSettings = new ModalSettings().getSettings().createModalSettings();
+      modalTypesObject.modalSettings = new ModalSettings().loadSettings().createModalSettings();
     });
     this.wrap.appendChild(saveSettingsBtn);
 
@@ -92,7 +92,7 @@ export class ModalSettings extends Modal {
     backSettings.innerText = this.wordsArr[7];
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", () => {
-      modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
+      modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
     });
     this.wrap.appendChild(backSettings);
     return this;
