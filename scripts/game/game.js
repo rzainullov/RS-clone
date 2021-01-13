@@ -2,6 +2,7 @@
 import { initGameArea, gameArea } from "./gameArea.js";
 import { gameLobby } from "./gameLobby.js";
 import { scoresSheet } from "./scoresSheet.js";
+import { languages } from "../language.js";
 
 export var game = null;
 
@@ -9,6 +10,7 @@ export class Game {
   constructor(settings, savedGame = null) {
     this.settings = settings.playerSettings;
     this.players = this.settings[1].settingValue;
+    this.language = this.settings[2].settingValue;
     this.master = settings.playerName;
     this.savedGameData = savedGame;
     this.currentGameData = null;
@@ -137,21 +139,24 @@ export class Game {
   changeCurrentPlayer() {
     const currentPlayer = this.currentGameData.currentPlayer;
     const players = this.currentGameData.players;
+    const langIdx = languages.findIndex(item => item.langName === this.language);
     const indexPlayer = players.findIndex(player => player.playerName === currentPlayer);
     this.currentGameData.currentPlayer = this.currentGameData.players[indexPlayer + 1].playerName;
-    gameArea.changeIndicator("data-current-player-indicator", `Current player:${this.currentGameData.currentPlayer}`);
+    gameArea.changeIndicator("data-current-player-indicator", `${languages[langIdx].gameArea[1]}:${this.currentGameData.currentPlayer}`);
   }
 
   changeCurrentAttemptIndicator() {
-    gameArea.changeIndicator("data-current-attempt-indicator", `Current attempt:${this.currentGameData.currentAttempt}`);
+    const langIdx = languages.findIndex(item => item.langName === this.language);
+    gameArea.changeIndicator("data-current-attempt-indicator", `${languages[langIdx].gameArea[2]}:${this.currentGameData.currentAttempt}`);
   }
 
   changeCurrentRound() {
+    const langIdx = languages.findIndex(item => item.langName === this.language);
     this.currentGameData.playRound += 1;
     if (this.currentGameData.playRound === 13) {
       this.finishGame();
     }
-    gameArea.changeIndicator("data-current-round-indicator", `Current round:${this.currentGameData.playRound}`);
+    gameArea.changeIndicator("data-current-round-indicator", `${languages[langIdx].gameArea[0]}:${this.currentGameData.playRound}`);
   }
 
   getCurrentDices() {

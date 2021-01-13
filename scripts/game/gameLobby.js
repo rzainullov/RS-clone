@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 import { game } from "./game.js";
 export var gameLobby = null;
+import { languages } from "../language.js";
 
 export class GameLobby {
   constructor(settings) {
@@ -50,9 +51,16 @@ export class GameLobby {
 
   createDiceCellsSubscriptions() {
     const diceCellsSubscription = document.createElement("p");
+    const langIdx = languages.findIndex(item => item.langName === this.language);
     diceCellsSubscription.setAttribute("data-dice-cells-subscription", "");
-    diceCellsSubscription.textContent = "Current combination";
+    diceCellsSubscription.textContent = `${languages[langIdx].gameLobby[0]}`;
     this.diceCellsSubscription = diceCellsSubscription;
+  }
+
+  changeLanguageOfDiceCellsSubscription(language) {
+    const diceCellsSubscription = this.diceCellsSubscription;
+    const langIdx = languages.findIndex(item => item.langName === language);
+    diceCellsSubscription.textContent = `${languages[langIdx].gameLobby[0]}`;
   }
 
   addDiceCellsSubscriptions() {
@@ -83,9 +91,16 @@ export class GameLobby {
 
   createButtons() {
     const rollButton = document.createElement("div");
+    const langIdx = languages.findIndex(item => item.langName === this.language);
     rollButton.setAttribute("data-roll-btn", "");
-    rollButton.textContent = "ROLL THE DICES";
+    rollButton.textContent = `${languages[langIdx].gameLobby[1]}`;
     this.rollButton = rollButton;
+  }
+
+  changeLanguageOfButton(language) {
+    const rollButton = this.rollButton;
+    const langIdx = languages.findIndex(item => item.langName === language);
+    rollButton.textContent = `${languages[langIdx].gameLobby[1]}`;
   }
 
   addButtons() {
@@ -95,7 +110,7 @@ export class GameLobby {
   setEventListener() {
     const lobbyCloth = this.lobbyCloth;
     lobbyCloth.addEventListener("click", (e) => {
-      if (e.target.textContent === "ROLL THE DICES") {
+      if (e.target === document.querySelector("[data-roll-btn]")) {
         game.rollTheDices();
         game.currentCombinationIsChosen = false;
       }
