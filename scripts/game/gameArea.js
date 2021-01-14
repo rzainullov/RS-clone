@@ -95,7 +95,6 @@ export class GameArea {
     gameLobby.changeLanguageOfDiceCellsSubscription(this.language);
     gameLobby.changeLanguageOfButton(this.language);
     this.changeLanguageOfIndicators(this.language);
-    
   }
 
   setEventListener() {
