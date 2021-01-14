@@ -1,10 +1,13 @@
 /* eslint-disable linebreak-style */
 
+import { languages } from "../language.js";
 import { game } from "./game.js";
 export var scoresSheet = null;
 export class ScoresSheet {
   constructor(gameData, settings) {
     this.main = document.querySelector("[data-main]");
+    this.settings = settings;
+    this.language = this.settings[2].settingValue;
     this.totalCombination = gameData.totalCombination;
     this.numberPlayer = settings[0].settingValue;
     this.players = gameData.players;
@@ -167,9 +170,10 @@ export class ScoresSheet {
 
   createMainColumn() {
     const mainColumn = document.createElement("div");
+    const langIdx = languages.findIndex(item => item.langName === this.language);
     mainColumn.setAttribute("data-ss-table-mc", "");
-    const props = Object.keys(this.nameOfTableCells);
-    const propsText = Object.values(this.nameOfTableCells);
+    const props = Object.keys(languages[langIdx].nameOfTableCells);
+    const propsText = Object.values(languages[langIdx].nameOfTableCells);
     props.forEach((item, idx) => {
       const cell = document.createElement("div");
       cell.setAttribute(`data-ss-table-mc-${item}`, "");
@@ -180,29 +184,39 @@ export class ScoresSheet {
     this.mainColumn = mainColumn;
   }
 
+  changeColumnLanguage(language) {
+    const cells = this.mainColumn.childNodes;
+    const langIdx = languages.findIndex(item => item.langName === language);
+    const propsText = Object.values(languages[langIdx].nameOfTableCells);
+    cells.forEach((item, idx) => {
+      const cell = item;
+      cell.textContent = propsText[idx];
+    });
+  }
+
   addMainColumn() {
     this.scoresSheetTable.appendChild(this.mainColumn);
   }
 
   createPlayerColumns() {
     const playerColumns = document.createElement("div");
+    const langIdx = languages.findIndex(item => item.langName === this.language);
     playerColumns.setAttribute("data-player-columns", "");
     playerColumns.style.gridTemplateColumns = `repeat(${this.numberPlayer},1fr)`;
     this.players.forEach(player => {
       const playerColumn = document.createElement("div");
       playerColumn.setAttribute("data-player-column", `${player.playerName}`);
-      const props = Object.keys(this.nameOfTableCells);
-      const propsText = Object.keys(this.nameOfTableCells);
-      props.forEach((item, idx) => {
+      const props = Object.keys(languages[langIdx].nameOfTableCells);
+      props.forEach((item) => {
         const cell = document.createElement("div");
         cell.setAttribute("data-player-prop", `${item}`);
-        if (propsText[idx] !== "player-name" && propsText[idx] !== "Total") {
+        if (item !== "player-name" && item !== "Total") {
           cell.textContent = 0;
         } else {
-          if (propsText[idx] === "player-name") {
+          if (item === "player-name") {
             cell.textContent = player.playerName;
           }
-          if (propsText[idx] === "Total") {
+          if (item === "Total") {
             cell.textContent = player.playerTotal;
             cell.textContent = "";
           }
