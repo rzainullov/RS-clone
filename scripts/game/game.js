@@ -3,6 +3,8 @@ import { initGameArea, gameArea } from "./gameArea.js";
 import { gameLobby } from "./gameLobby.js";
 import { scoresSheet } from "./scoresSheet.js";
 import { languages } from "../language.js";
+import { defaultGameSettings } from "../default.js";
+import { defaultPlayerData } from "../default.js";
 
 export var game = null;
 
@@ -15,37 +17,8 @@ export class Game {
     this.savedGameData = savedGame;
     this.currentGameData = null;
     this.lastEmptyRollDiceArea = [];
-    this.templateGameData = {
-      playerName: this.master,
-      playID: "1", //
-      playBeginDateTime: Date.now(), // Кол-во мсек с 1 января 1970 года 00:00:00 по UTC
-      playRound: 1,
-      playElapsedTime: null,
-      currentPlayer: this.players[0],
-      currentAttempt: 0,
-      currentCombination: ["", "", "", "", ""],
-      currentDices: [],
-      totalCombination: null,
-      players: []
-    };
-    this.templatePlayerData = {
-      playerName: null,
-      playerCombos: {
-        one: null,
-        two: null,
-        tree: null,
-        four: null,
-        five: null,
-        six: null,
-        sum: null,
-        smallStraight: null,
-        longStraight: null,
-        fullHouse: null,
-        fourOfKind: null,
-        poker: null
-      },
-      playerTotal: null
-    };
+    this.templateGameData = defaultGameSettings;
+    this.templatePlayerData = defaultPlayerData;
   }
 
   createNewGameArea() {

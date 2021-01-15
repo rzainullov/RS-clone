@@ -70,13 +70,21 @@ export class ModalLogin extends Modal {
     passWord.setAttribute("type", "password");
     this.wrap.appendChild(passWord);
 
-    const enter = document.createElement("div");
-    enter.innerText = this.wordsArr[4];
-    enter.classList.add("modal__item");
-    enter.addEventListener("click", () => {
+    const signin = document.createElement("div");
+    signin.innerText = this.wordsArr[4];
+    signin.classList.add("modal__item");
+    signin.addEventListener("click", () => {
       this.pushLogin(login.value, passWord.value);
     });
-    this.wrap.appendChild(enter);
+    this.wrap.appendChild(signin);
+
+    const signup = document.createElement("div");
+    signup.innerText = this.wordsArr[6];
+    signup.classList.add("modal__item");
+    signup.addEventListener("click", () => {
+      //this.pushLogin(login.value, passWord.value);
+    });
+    this.wrap.appendChild(signup);
 
     const back = document.createElement("div");
     back.innerText = this.wordsArr[5];

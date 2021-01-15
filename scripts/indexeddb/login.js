@@ -1,4 +1,6 @@
-/* eslint linebreak-style: ["error", "windows"] */
+/* eslint-disable linebreak-style */
+import { defaultSettings } from "../default.js";
+
 function hashPassword(pass) {
   return pass;
 }
@@ -19,10 +21,9 @@ export class Login {
   }
 
   checkUserName(name) {
-    if (name === "Player1") {
+    if (name === defaultSettings.playerName || name === null) {
       return true;
     }
     return false;
-    }    
-  }
+  }    
 }

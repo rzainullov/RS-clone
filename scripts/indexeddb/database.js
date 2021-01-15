@@ -1,4 +1,4 @@
-/* eslint linebreak-style: ["error", "windows"] */
+/* eslint-disable linebreak-style */
 import * as dbFunctions from "./dbfunctions.js";
 export class DataBase {
   constructor() {
@@ -41,5 +41,9 @@ export class DataBase {
 
   saveSettings(data) {
     dbFunctions.saveData(this.dataBaseDef, this.settingsTable, data);
+  }
+
+  saveGame(data) {
+    dbFunctions.saveData(this.dataBaseDef, this.playsStore, data);
   }
 }
