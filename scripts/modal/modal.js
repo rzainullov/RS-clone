@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 import { languages } from "../language.js";
 import { DB } from "../../main.js";
+import { defaultSettings } from "../default.js";
 
 export class Modal {
   constructor() {
@@ -37,16 +38,7 @@ export class Modal {
   }
 
   getSettings(settings) {
-    this.localSettings = settings || {
-      playerName: "Player1",
-      playerSettings: [
-        { settingName: "playersCount", settingValue: "4" },
-        { settingName: "playersNames", settingValue: ["Player1", "Player2", "Player3", "Player4"] },
-        { settingName: "language", settingValue: "English" },
-        { settingName: "sound", settingValue: "on" },
-        { settingName: "color", settingValue: "red" }
-      ]
-    };
+    this.localSettings = settings || defaultSettings;
     return this;
   }
 

@@ -1,4 +1,4 @@
-/* eslint linebreak-style: ["error", "windows"] */
+/* eslint-disable linebreak-style */
 export const DB_NAME = "bones_poker";
 export const PLAYERS_TABLE = "players";
 export const SETTINGS_TABLE = "settings";
