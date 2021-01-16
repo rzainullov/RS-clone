@@ -8,6 +8,7 @@ import { Login } from "./scripts/indexeddb/login.js";
 export const modalTypesObject = {
   modal: {},
   modalLogin: {},
+  modalSignup: {},
   modalMain: {},
   modalRules: {},
   modalSettings: {}
