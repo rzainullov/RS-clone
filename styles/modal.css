@@ -87,6 +87,11 @@
 	flex-wrap: wrap; 
 	justify-content: center;
 }
+.modal__error {
+	color: #7a1a0b;
+	text-transform: uppercase;
+	font-size: 18px;
+}
 
 /** Styles for login */
 .modal__input {

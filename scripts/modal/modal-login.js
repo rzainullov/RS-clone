@@ -2,6 +2,7 @@
 import { modalTypesObject } from "../../main.js";
 import { Modal } from "./modal.js";
 import { ModalMain } from "./modal-main.js";
+import { ModalSignup } from "./modal-signup.js";
 
 export class ModalLogin extends Modal {
   constructor() {
@@ -53,6 +54,11 @@ export class ModalLogin extends Modal {
     return this;
   }
 
+  pushSignup() {
+    modalTypesObject.modalSignup = new ModalSignup().loadSettings().createModalSignup();
+    return this;
+  }
+
   createModalLogin() {
     this.clearModalArea();
     this.getWords("loginModal");
@@ -82,7 +88,7 @@ export class ModalLogin extends Modal {
     signup.innerText = this.wordsArr[6];
     signup.classList.add("modal__item");
     signup.addEventListener("click", () => {
-      //this.pushLogin(login.value, passWord.value);
+      this.pushSignup();
     });
     this.wrap.appendChild(signup);
 

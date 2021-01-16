@@ -7,6 +7,7 @@ import { defaultSettings } from "./scripts/default.js";
 export const modalTypesObject = {
   modal: {},
   modalLogin: {},
+  modalSignup: {},
   modalMain: {},
   modalRules: {},
   modalSettings: {}
