@@ -39,8 +39,20 @@ export class DataBase {
     return dbFunctions.loadData(this.dataBaseDef, this.settingsTable, playerName);
   }
 
+  loadPlayer(playerName) {
+    dbFunctions.loadData(this.dataBaseDef, this.playersTable, playerName);
+  }
+
+  loadGame(playerName) {
+    dbFunctions.loadData(this.dataBaseDef, this.playsStore, playerName);
+  }
+
   saveSettings(data) {
     dbFunctions.saveData(this.dataBaseDef, this.settingsTable, data);
+  }
+
+  savePlayer(data) {
+    dbFunctions.saveData(this.dataBaseDef, this.playersTable, data);
   }
 
   saveGame(data) {

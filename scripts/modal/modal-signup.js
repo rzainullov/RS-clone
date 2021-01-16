@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import { modalTypesObject } from "../../main.js";
+import { DB, currentLogin, modalTypesObject } from "../../main.js";
 import { Modal } from "./modal.js";
 import { ModalLogin } from "./modal-login.js";
 
@@ -10,7 +10,7 @@ export class ModalSignup extends Modal {
 
   pushSignup(isPasswordsEqual, password, login) {
     if (isPasswordsEqual) {
-      /** Запись в БД */
+      currentLogin.saveLogin(login, password);
       modalTypesObject.modalLogin = new ModalLogin()
         .loadSettings()
         .createModalLogin();
