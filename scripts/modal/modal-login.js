@@ -9,17 +9,7 @@ export class ModalLogin extends Modal {
     super();
   }
 
-  onNewLogin() {
-    console.log("Create new user");
-    /** Добавление пользователя и пароля в БД */
-    modalTypesObject.modalMain = new ModalMain()
-      .loadSettings()
-      .createModalMain();
-    return this;
-  }
-
   onVerifiedLogin() {
-    console.log("login successfully");
     /** Подгрузка настроек в локал сторадж */
     modalTypesObject.modalMain = new ModalMain()
       .getSettings()
@@ -29,33 +19,31 @@ export class ModalLogin extends Modal {
   }
 
   onUnverifiedLogin() {
-    console.log("login failed");
     modalTypesObject.modalLogin = new ModalLogin()
       .loadSettings()
-      .createModalLogin();
+      .createModalLogin()
+      .addErrorMessage();
     return this;
   }
 
   pushLogin(login, passWord) {
-    if (login === "user") {
-      if (passWord === "pass") {
-        this.onVerifiedLogin();
-      } else {
-        this.onUnverifiedLogin();
-      }
+    /** Хешировать и завгрузить из базы данных */
+    const isLoginPasswordCorrect = login === "user" && passWord === "pass";
+    if (isLoginPasswordCorrect) {
+      this.onVerifiedLogin();
     } else {
-      this.onNewLogin();
+      this.onUnverifiedLogin();
     }
-    return this;
-  }
-
-  pushBack() {
-    modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
     return this;
   }
 
   pushSignup() {
     modalTypesObject.modalSignup = new ModalSignup().loadSettings().createModalSignup();
+    return this;
+  }
+
+  pushBack() {
+    modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
     return this;
   }
 
@@ -85,7 +73,7 @@ export class ModalLogin extends Modal {
     this.wrap.appendChild(signin);
 
     const signup = document.createElement("div");
-    signup.innerText = this.wordsArr[6];
+    signup.innerText = this.wordsArr[5];
     signup.classList.add("modal__item");
     signup.addEventListener("click", () => {
       this.pushSignup();
@@ -93,12 +81,20 @@ export class ModalLogin extends Modal {
     this.wrap.appendChild(signup);
 
     const back = document.createElement("div");
-    back.innerText = this.wordsArr[5];
+    back.innerText = this.wordsArr[6];
     back.classList.add("modal__item");
     back.addEventListener("click", () => {
       this.pushBack();
     });
     this.wrap.appendChild(back);
+    return this;
+  }
+
+  addErrorMessage() {
+    const err = document.createElement("div");
+    err.innerText = this.wordsArr[7];
+    err.classList.add("modal__error");
+    this.wrap.prepend(err);
     return this;
   }
 }
