@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 export const defaultSettings = {
   playerName: "Player1",
+  playerPass: "",
   playerSettings: [
     { settingName: "playersCount", settingValue: "4" },
     { settingName: "playersNames", settingValue: ["Player1", "Player2", "Player3", "Player4"] },

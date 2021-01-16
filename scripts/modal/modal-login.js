@@ -3,6 +3,8 @@ import { modalTypesObject } from "../../main.js";
 import { Modal } from "./modal.js";
 import { ModalMain } from "./modal-main.js";
 import { ModalSignup } from "./modal-signup.js";
+import { currentLogin } from "../../main.js";
+import { defaultSettings } from "../default.js";
 
 export class ModalLogin extends Modal {
   constructor() {
@@ -10,7 +12,6 @@ export class ModalLogin extends Modal {
   }
 
   onVerifiedLogin() {
-    /** Подгрузка настроек в локал сторадж */
     modalTypesObject.modalMain = new ModalMain()
       .getSettings()
       .setSettings()
@@ -27,9 +28,9 @@ export class ModalLogin extends Modal {
   }
 
   pushLogin(login, passWord) {
-    /** Хешировать и завгрузить из базы данных */
-    const isLoginPasswordCorrect = login === "user" && passWord === "pass";
-    if (isLoginPasswordCorrect) {
+    const isEmptyLoginPassword = login === defaultSettings.playerName
+      && passWord === defaultSettings.playerPass;
+    if (isEmptyLoginPassword) {
       this.onVerifiedLogin();
     } else {
       this.onUnverifiedLogin();

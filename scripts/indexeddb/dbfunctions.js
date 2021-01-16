@@ -87,26 +87,3 @@ export function loadData(dbDefinition, table, key) {
     };
   });
 }
-
-/* export function loadData(dbDefinition, table, key) {
-  let openRequest = indexedDB.open(dbDefinition.name);
-  openRequest.onsuccess = function connect() {
-    let database = openRequest.result;
-    let curTransaction = database.transaction(table.name, "readonly");
-    let store = curTransaction.objectStore(table.name);
-    let getRequest = store.get(key);
-    getRequest.onsuccess = function success(event) {
-      console.log(event.target.result);
-      return event.target.result;
-    };
-
-    getRequest.onabort = function abort(event) {
-      console.log(event.target.error);
-      return null;
-    };
-  };
-  openRequest.onerror = function error(event) {
-    console.log(event.target.error);
-    return null;
-  };
-} */
