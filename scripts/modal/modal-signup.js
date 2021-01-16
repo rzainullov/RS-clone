@@ -8,7 +8,7 @@ export class ModalSignup extends Modal {
     super();
   }
 
-  pushSignup(isPasswordsEqual) {
+  pushSignup(isPasswordsEqual, password, login) {
     if (isPasswordsEqual) {
       /** Запись в БД */
       modalTypesObject.modalLogin = new ModalLogin()
@@ -58,7 +58,7 @@ export class ModalSignup extends Modal {
     signup.classList.add("modal__item");
     signup.addEventListener("click", () => {
       const isPasswordsEqual = passWord.value === repeatPassWord.value;
-      this.pushSignup(isPasswordsEqual);
+      this.pushSignup(isPasswordsEqual, passWord.value, login.value);
     });
     this.wrap.appendChild(signup);
 
