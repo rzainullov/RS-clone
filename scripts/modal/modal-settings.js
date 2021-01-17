@@ -25,12 +25,15 @@ export class ModalSettings extends Modal {
       for (let i = 0; i < +playersCount; i += 1) {
         namesInput[i] = document.createElement("textarea");
         namesInput[i].classList.add("modal__names");
-        namesInput[i].value = playersNames[i];
+        namesInput[i].value = playersNames[i] || "Player";
+        playersNames[i] = namesInput[i].value;
         namesInput[i].addEventListener("blur", () => {
           playersNames[i] = namesInput[i].value;
         });
         wrapNames.appendChild(namesInput[i]);
       }
+      const maxPlayersCount = 4;
+      playersNames.splice(playersCount, maxPlayersCount);
     };
     createAreaForNames();
     wrapPlayers.addEventListener("click", () => {
