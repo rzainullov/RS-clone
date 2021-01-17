@@ -31,7 +31,6 @@ export function connectDB(dbDefinition) {
 
     openRequest.onsuccess = function connect(event) {
       dbDefinition.connection = event.target.result;
-      // console.log(dbDefinition.connection);
     };
 
     openRequest.onerror = function error(event) {

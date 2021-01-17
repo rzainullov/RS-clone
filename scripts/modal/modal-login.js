@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 /* eslint-disable linebreak-style */
 import { modalTypesObject } from "../../main.js";
 import { Modal } from "./modal.js";
 import { ModalMain } from "./modal-main.js";
 import { ModalSignup } from "./modal-signup.js";
 import { currentLogin } from "../../main.js";
-import { defaultSettings } from "../default.js";
 
 export class ModalLogin extends Modal {
   constructor() {
@@ -19,7 +19,7 @@ export class ModalLogin extends Modal {
     return this;
   }
 
-  onUnverifiedLogin() {
+  onUnVerifiedLogin() {
     modalTypesObject.modalLogin = new ModalLogin()
       .loadSettings()
       .createModalLogin()
@@ -28,13 +28,7 @@ export class ModalLogin extends Modal {
   }
 
   pushLogin(login, passWord) {
-    const isEmptyLoginPassword = login === defaultSettings.playerName
-      && passWord === defaultSettings.playerPass;
-    if (isEmptyLoginPassword) {
-      this.onVerifiedLogin();
-    } else {
-      this.onUnverifiedLogin();
-    }
+    currentLogin.checkPassword(login, passWord, this.onVerifiedLogin, this.onUnVerifiedLogin);
     return this;
   }
 

@@ -5,18 +5,26 @@ import { DB } from "../../main.js";
 
 export async function hashPassword(password) {
   const msgBuffer = new TextEncoder("utf-8").encode(password);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+  const hashBuffer = await crypto.subtle.digest("SHA-1", msgBuffer);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   const hashHex = hashArray.map(b => ("00" + b.toString(16)).slice(-2)).join("");
   return hashHex;
 }
 
-function checkUserName(database, name) {
-  let player = database.loadPlayer(name);
-  player
-    .then((data) => console.log(data))
-    .catch((error) => console.log(new Error(error)));
-  return player.data;
+function makeAfterVerify(isVerified, verifiedCallback, unverifiedCallback) {
+  if (isVerified) {
+    verifiedCallback();
+  } else {
+    unverifiedCallback();
+  }
+}
+
+function makeAfterSignUp(isPlayerExists, existsCallback, notexistsCallback) {
+  if (isPlayerExists) {
+    existsCallback();
+  } else {
+    notexistsCallback();
+  }
 }
 
 export class Login {
@@ -25,37 +33,49 @@ export class Login {
     this.setHashedPass("");
   }
 
-  saveLogin(login, password) {
+  saveLogin(login, password, existsCallback, notexistsCallback) {
     this.setLogin(login);
-    this.setPass(password);
-    let player = {playerName: this.playerName, hashedPass: this.hashedPass};
-    DB.savePlayer(player);
+    this.setHashedPass(password, () => {
+      const player = { playerName: this.playerName, hashedPass: this.hashedPass };
+      let findPlayer = DB.loadPlayer(login);
+      findPlayer
+        .then((playerData) => {
+          const isExists = playerData !== undefined;
+          makeAfterSignUp(isExists, existsCallback, notexistsCallback);
+          if (!isExists) {
+            DB.savePlayer(player);
+          }
+        });
+    });
   }
 
-  getLogin() {
-    return this.playerName;
-  }
-
-  getHashedPass() {
-    return this.hashedPass;
+  checkPassword(login, password, verifiedCallback, unverifiedCallback) {
+    this.setLogin(login);
+    this.setHashedPass(password, () => {
+      let findPlayer = DB.loadPlayer(login);
+      findPlayer
+        .then((playerData) => {
+          const verify = playerData !== undefined
+            && playerData.hashedPass === this.hashedPass;
+          makeAfterVerify(verify, verifiedCallback, unverifiedCallback);
+        });
+    });
   }
 
   setLogin(name) {
     this.playerName = name;
   }
 
-  setPass(password) {
-    this.setHashedPass(password);
-  }
-
-  setHashedPass(password) {
+  setHashedPass(password, callback) {
     let hashPass = hashPassword(password);
     hashPass
       .then((data) => {
         this.hashedPass = data;
+        callback();
       })
       .catch(() => {
         this.hashedPass = "";
+        return "";
       });
   }
 }
