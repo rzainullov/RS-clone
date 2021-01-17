@@ -66,19 +66,16 @@ export class ModalMain extends Modal {
   newGame() {
     modalTypesObject.modal.makeUnactive();
     initGame(this.localSettings);
-    console.log("New game");
     return this;
   }
 
   saveGame() {
     modalTypesObject.modal.makeUnactive();
-    console.log("Save game");
     return this;
   }
 
   loadGame() {
     modalTypesObject.modal.makeUnactive();
-    console.log("Load game");
     return this;
   }
 }
