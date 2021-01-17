@@ -40,7 +40,7 @@ export class DataBase {
   }
 
   loadPlayer(playerName) {
-    dbFunctions.loadData(this.dataBaseDef, this.playersTable, playerName);
+    return dbFunctions.loadData(this.dataBaseDef, this.playersTable, playerName);
   }
 
   loadGame(playerName) {

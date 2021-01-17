@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import { DB, currentLogin, modalTypesObject } from "../../main.js";
+import { currentLogin, modalTypesObject } from "../../main.js";
 import { Modal } from "./modal.js";
 import { ModalLogin } from "./modal-login.js";
 
@@ -8,17 +8,27 @@ export class ModalSignup extends Modal {
     super();
   }
 
-  pushSignup(isPasswordsEqual, password, login) {
+  onSuccsessSignUp() {
+    modalTypesObject.modalLogin = new ModalLogin()
+      .loadSettings()
+      .createModalLogin();
+    return this;
+  }
+
+  onErrorSignUp() {
+    modalTypesObject.modalSignup = new ModalSignup()
+      .loadSettings()
+      .createModalSignup()
+      .addErrorMessage();
+    return this;
+  }
+
+  pushSignup(password1, password2, login) {
+    const isPasswordsEqual = password1 === password2;
     if (isPasswordsEqual) {
-      currentLogin.saveLogin(login, password);
-      modalTypesObject.modalLogin = new ModalLogin()
-        .loadSettings()
-        .createModalLogin();
+      currentLogin.saveLogin(login, password1, this.onErrorSignUp, this.onSuccsessSignUp);
     } else {
-      modalTypesObject.modalSignup = new ModalSignup()
-        .loadSettings()
-        .createModalSignup()
-        .addErrorMessage();
+      this.onErrorSignUp();
     }
     return this;
   }
@@ -57,8 +67,7 @@ export class ModalSignup extends Modal {
     signup.innerText = this.wordsArr[5];
     signup.classList.add("modal__item");
     signup.addEventListener("click", () => {
-      const isPasswordsEqual = passWord.value === repeatPassWord.value;
-      this.pushSignup(isPasswordsEqual, passWord.value, login.value);
+      this.pushSignup(passWord.value, repeatPassWord.value, login.value);
     });
     this.wrap.appendChild(signup);
 
