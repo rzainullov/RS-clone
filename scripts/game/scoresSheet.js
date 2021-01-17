@@ -203,7 +203,7 @@ export class ScoresSheet {
     const langIdx = languages.findIndex(item => item.langName === this.language);
     playerColumns.setAttribute("data-player-columns", "");
     playerColumns.style.gridTemplateColumns = `repeat(${this.numberPlayer},1fr)`;
-    this.players.forEach(player => {
+    this.players.forEach((player) => {
       const playerColumn = document.createElement("div");
       playerColumn.setAttribute("data-player-column", `${player.playerName}`);
       const props = Object.keys(languages[langIdx].nameOfTableCells);

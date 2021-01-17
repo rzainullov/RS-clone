@@ -35,7 +35,7 @@ export class GameLobby {
   createLobbyCloth() {
     const lobbyCloth = document.createElement("div");
     lobbyCloth.setAttribute("data-lobby-cloth", "");
-    lobbyCloth.style.background = this.color;
+    lobbyCloth.style.background = `center / contain no-repeat url('img/${this.color}.png')`;
     this.lobbyCloth = lobbyCloth;
   }
 

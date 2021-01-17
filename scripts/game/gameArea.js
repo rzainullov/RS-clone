@@ -10,15 +10,27 @@ export var gameArea = null;
 export class GameArea {
   constructor(settings, gameData) {
     this.main = document.querySelector("[data-main]");
+    this.mainContainer = null;
     this.settings = settings;
     this.language = this.settings[2].settingValue;
     this.gameData = gameData;
+    this.indicators = null;
     this.currentPlayerIndicator = null;
     this.currentRoundIndicator = null;
     this.currentAttemptIndicator = null;
     this.gameMenuButton = null;
     this.gameLobby = null;
     this.scoresSheet = null;
+  }
+
+  createMainContainer() {
+    const mainContainer = document.createElement("div");
+    mainContainer.setAttribute("data-main-container", "");
+    this.mainContainer = mainContainer;
+  }
+
+  addMainContainer() {
+    this.main.appendChild(this.mainContainer);
   }
 
   createIndicators() {
@@ -48,9 +60,13 @@ export class GameArea {
   }
 
   addIndicators() {
-    this.main.appendChild(this.currentRoundIndicator);
-    this.main.appendChild(this.currentPlayerIndicator);
-    this.main.appendChild(this.currentAttemptIndicator);
+    const indicators = document.createElement("div");
+    indicators.setAttribute("data-indicators", "");
+    this.indicators = indicators;
+    this.indicators.appendChild(this.currentRoundIndicator);
+    this.indicators.appendChild(this.currentPlayerIndicator);
+    this.indicators.appendChild(this.currentAttemptIndicator);
+    this.mainContainer.appendChild(this.indicators);
   }
 
   changeIndicator(indicator, text) {
@@ -59,12 +75,14 @@ export class GameArea {
   }
 
   renderGameArea() {
+    this.createMainContainer();
     this.createIndicators();
     this.addIndicators();
     this.createGameLobby();
     this.addGameLobby();
     this.createScoresSheets();
     this.addScoresSheets();
+    this.addMainContainer();
     this.setEventListener();
   }
 
@@ -74,7 +92,7 @@ export class GameArea {
   }
 
   addGameLobby() {
-    this.main.appendChild(this.gameLobby);
+    this.mainContainer.appendChild(this.gameLobby);
   }
 
   createScoresSheets() {
@@ -83,7 +101,7 @@ export class GameArea {
   }
 
   addScoresSheets() {
-    this.main.appendChild(this.scoresSheet);
+    this.mainContainer.appendChild(this.scoresSheet);
   }
 
   changeLanguageDuringGame() {

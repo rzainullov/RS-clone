@@ -1,18 +1,24 @@
 [data-lobby-cloth] {
-    width:60vw;
-    height: 67vh;
-    border-radius: 190px;
+    width: 45vw;
+    height: 75vh;
+    min-width: 640px;
+    /* border-radius: 190px; */
+    grid-row: 1 / 5;
+    grid-column: 2 / 5;
+    margin-top: 40px;
 }
 [data-lobby-cloth-container] {
     display:flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100%;
 }
 [data-dice-cells] {
     display:grid;
     width:350px; 
-    height:70px; 
+    height:50px; 
+    grid-column-gap: 25px;
     grid-template-columns: repeat(5,1fr);
 }
 [data-roll-dice-area-container] {
@@ -22,13 +28,14 @@
 }
 [data-roll-dice-area] {
     border: 1px solid yellow;
-    display: grid;
-    width: 350px;
-    height: 350px;
+    /* display: grid; */
+    width: 80%;
+    height: 60%;
     margin: 15px auto;
-    grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(5,1fr);
+    /* grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(5,1fr); */
     border-radius: 100px;
+    position: relative;
 }
 
 
@@ -47,29 +54,42 @@
 [data-roll-dice-area-4],
 [data-roll-dice-area-5]{
     cursor: pointer;
+    position: absolute;
+    width: 50px;
+    height: 50px;
 }
 [data-roll-dice-area-1] {
-    grid-row: 2 / 3;
-    grid-column: 2 / 3;
+    /* grid-row: 2 / 3;
+    grid-column: 2 / 3; */
+    top: 90px;
+    left: 50px;
 }
 [data-roll-dice-area-2] {
-    grid-row: 2 / 3;
-    grid-column: 4 / 5;
+    /* grid-row: 2 / 3;
+    grid-column: 4 / 5; */
+    top: 55px;
+    left: 180px;
     
 }
 [data-roll-dice-area-3]{
-    grid-row: 3 / 4;
-    grid-column: 3 / 4;
+    /* grid-row: 3 / 4;
+    grid-column: 3 / 4; */
+    top: 100px;
+    right: 55px;
     
 }
 [data-roll-dice-area-4]{
-    grid-row: 4 / 5;
-    grid-column: 2 / 3;
+    /* grid-row: 4 / 5;
+    grid-column: 2 / 3; */
+    bottom: 80px;
+    right: 35px;
     
 }
 [data-roll-dice-area-5] {
-    grid-row: 4 / 5;
-    grid-column: 4 / 5;
+    /* grid-row: 4 / 5;
+    grid-column: 4 / 5; */
+    bottom: 50px;
+    right: 300px;
     
 }
 [data-roll-btn] {

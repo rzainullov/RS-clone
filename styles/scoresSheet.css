@@ -1,8 +1,10 @@
 [data-ss-table] {
-    position: absolute;
+    /* position: absolute; */
     display: flex;
-    top:100px;
-    right: 50px;
+    justify-content: center;
+    align-items: center;
+    grid-row: 2 / 4;
+    grid-column: 5 / 7;
     /* width: 20vw; */
     /* height:40vh; */
     background-color: wheat;
