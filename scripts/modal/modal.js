@@ -2,6 +2,7 @@
 import { languages } from "../language.js";
 import { DB } from "../../main.js";
 import { defaultSettings } from "../default.js";
+import { audioAPI } from "../../main.js";
 
 export class Modal {
   constructor() {
@@ -85,5 +86,12 @@ export class Modal {
     wrapTitle.innerText = this.wordsArr[1];
     wrapTitle.classList.add("modal__title");
     this.wrap.appendChild(wrapTitle);
+  }
+
+  checkPlaySound(note) {
+    const isAudioOn = this.localSettings.playerSettings.find(el => el.settingName === "sound").settingValue === "on";
+    if (isAudioOn) {
+      audioAPI.chooseNote(note);
+    }
   }
 }

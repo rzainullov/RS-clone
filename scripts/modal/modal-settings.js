@@ -37,6 +37,7 @@ export class ModalSettings extends Modal {
     };
     createAreaForNames();
     wrapPlayers.addEventListener("click", () => {
+      this.checkPlaySound("A2");
       playersCount = (playersCount % 4) + 1;
       wrapPlayers.innerText = `${this.wordsArr[2]} ${playersCount}`;
       this.localSettings.playerSettings.find(el => el.settingName === "playersCount").settingValue = playersCount;
@@ -48,6 +49,7 @@ export class ModalSettings extends Modal {
     wrapLanguage.innerText = `${this.wordsArr[3]} ${languageType}`;
     wrapLanguage.classList.add("modal__text-item");
     wrapLanguage.addEventListener("click", () => {
+      this.checkPlaySound("A2");
       if (languageType === "English") {
         languageType = "Russian";
       } else if (languageType === "Russian") {
@@ -65,6 +67,7 @@ export class ModalSettings extends Modal {
     wrapSound.innerText = `${this.wordsArr[4]} ${soundType}`;
     wrapSound.classList.add("modal__text-item");
     wrapSound.addEventListener("click", () => {
+      this.checkPlaySound("A2");
       soundType = soundType === "on" ? "off" : "on";
       wrapSound.innerText = `${this.wordsArr[4]} ${soundType}`;
       this.localSettings.playerSettings.find(el => el.settingName === "sound").settingValue = soundType;
@@ -76,6 +79,7 @@ export class ModalSettings extends Modal {
     wrapColor.innerText = `${this.wordsArr[5]} ${colorType}`;
     wrapColor.classList.add("modal__text-item");
     wrapColor.addEventListener("click", () => {
+      this.checkPlaySound("A2");
       colorType = colorType === "red" ? "green" : "red";
       wrapColor.innerText = `${this.wordsArr[5]} ${colorType}`;
       this.localSettings.playerSettings.find(el => el.settingName === "color").settingValue = colorType;
@@ -86,6 +90,7 @@ export class ModalSettings extends Modal {
     saveSettingsBtn.innerText = this.wordsArr[6];
     saveSettingsBtn.classList.add("modal__item");
     saveSettingsBtn.addEventListener("click", () => {
+      this.checkPlaySound("A2");
       this.setSettings();
       modalTypesObject.modalSettings = new ModalSettings().loadSettings().createModalSettings();
     });
@@ -95,6 +100,7 @@ export class ModalSettings extends Modal {
     backSettings.innerText = this.wordsArr[7];
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", () => {
+      this.checkPlaySound("A2");
       modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
     });
     this.wrap.appendChild(backSettings);

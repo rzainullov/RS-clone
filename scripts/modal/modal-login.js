@@ -1,5 +1,5 @@
-/* eslint-disable no-console */
 /* eslint-disable linebreak-style */
+/* eslint-disable no-console */
 import { modalTypesObject } from "../../main.js";
 import { Modal } from "./modal.js";
 import { ModalMain } from "./modal-main.js";
@@ -28,16 +28,19 @@ export class ModalLogin extends Modal {
   }
 
   pushLogin(login, passWord) {
+    this.checkPlaySound("A3");
     currentLogin.checkPassword(login, passWord, this.onVerifiedLogin, this.onUnVerifiedLogin);
     return this;
   }
 
   pushSignup() {
+    this.checkPlaySound("A3");
     modalTypesObject.modalSignup = new ModalSignup().loadSettings().createModalSignup();
     return this;
   }
 
   pushBack() {
+    this.checkPlaySound("A3");
     modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
     return this;
   }
