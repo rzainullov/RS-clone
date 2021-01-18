@@ -18,6 +18,7 @@ export class ModalRules extends Modal {
     backSettings.innerText = this.wordsArr[3];
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", () => {
+      this.checkPlaySound("A4");
       modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
     });
     this.wrap.appendChild(backSettings);

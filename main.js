@@ -4,6 +4,7 @@ import { ModalLogin } from "./scripts/modal/modal-login.js";
 import { Modal } from "./scripts/modal/modal.js";
 import { defaultSettings } from "./scripts/default.js";
 import { Login } from "./scripts/indexeddb/login.js";
+import { Audio } from "./scripts/audio.js";
 
 export const modalTypesObject = {
   modal: {},
@@ -25,3 +26,5 @@ loadSettings
       .setSettings()
       .createModalLogin();
   });
+
+export const audioAPI = new Audio();

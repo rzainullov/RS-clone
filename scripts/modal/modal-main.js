@@ -17,6 +17,7 @@ export class ModalMain extends Modal {
     wrapNewGame.innerText = this.wordsArr[2];
     wrapNewGame.classList.add("modal__item");
     wrapNewGame.addEventListener("click", () => {
+      this.checkPlaySound("A4");
       this.newGame();
     });
     this.wrap.appendChild(wrapNewGame);
@@ -25,6 +26,7 @@ export class ModalMain extends Modal {
     wrapSaveGame.innerText = this.wordsArr[3];
     wrapSaveGame.classList.add("modal__item");
     wrapSaveGame.addEventListener("click", () => {
+      this.checkPlaySound("A4");
       this.saveGame();
     });
     this.wrap.appendChild(wrapSaveGame);
@@ -33,6 +35,7 @@ export class ModalMain extends Modal {
     wrapLoadGame.innerText = this.wordsArr[4];
     wrapLoadGame.classList.add("modal__item");
     wrapLoadGame.addEventListener("click", () => {
+      this.checkPlaySound("A4");
       this.loadGame();
     });
     this.wrap.appendChild(wrapLoadGame);
@@ -41,6 +44,7 @@ export class ModalMain extends Modal {
     wrapSettings.innerText = this.wordsArr[5];
     wrapSettings.classList.add("modal__item");
     wrapSettings.addEventListener("click", () => {
+      this.checkPlaySound("A4");
       modalTypesObject.modalSettings = new ModalSettings().loadSettings().createModalSettings();
     });
     this.wrap.appendChild(wrapSettings);
@@ -49,6 +53,7 @@ export class ModalMain extends Modal {
     wrapLogin.innerText = this.wordsArr[6];
     wrapLogin.classList.add("modal__item");
     wrapLogin.addEventListener("click", () => {
+      this.checkPlaySound("A4");
       modalTypesObject.modalLogin = new ModalLogin().loadSettings().createModalLogin();
     });
     this.wrap.appendChild(wrapLogin);
@@ -57,6 +62,7 @@ export class ModalMain extends Modal {
     wrapRules.innerText = this.wordsArr[7];
     wrapRules.classList.add("modal__item");
     wrapRules.addEventListener("click", () => {
+      this.checkPlaySound("A4");
       modalTypesObject.modalRules = new ModalRules().loadSettings().createModalRules();
     });
     this.wrap.appendChild(wrapRules);

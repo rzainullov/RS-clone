@@ -67,6 +67,7 @@ export class ModalSignup extends Modal {
     signup.innerText = this.wordsArr[5];
     signup.classList.add("modal__item");
     signup.addEventListener("click", () => {
+      this.checkPlaySound("A6");
       this.pushSignup(passWord.value, repeatPassWord.value, login.value);
     });
     this.wrap.appendChild(signup);
@@ -75,6 +76,7 @@ export class ModalSignup extends Modal {
     back.innerText = this.wordsArr[6];
     back.classList.add("modal__item");
     back.addEventListener("click", () => {
+      this.checkPlaySound("A6");
       this.pushBack();
     });
     this.wrap.appendChild(back);
