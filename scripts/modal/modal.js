@@ -91,7 +91,7 @@ export class Modal {
   checkPlaySound(note) {
     const isAudioOn = this.localSettings.playerSettings.find(el => el.settingName === "sound").settingValue === "on";
     if (isAudioOn) {
-      audioAPI.chooseNote(note);
+      audioAPI.playNote(note);
     }
   }
 }

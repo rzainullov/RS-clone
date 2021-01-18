@@ -2,6 +2,16 @@
 export class Audio {
   constructor() {
     this.context = new (window.AudioContext || window.webkitAudioContext)();
+    this.notes = [
+      { noteName: "A0", noteFrequency: "27,5" },
+      { noteName: "A1", noteFrequency: "55" },
+      { noteName: "A2", noteFrequency: "110" },
+      { noteName: "A3", noteFrequency: "220" },
+      { noteName: "A4", noteFrequency: "440" },
+      { noteName: "A5", noteFrequency: "880" },
+      { noteName: "A6", noteFrequency: "1760" },
+      { noteName: "A7", noteFrequency: "3520" }
+    ];
   }
 
   createOscillator() {
@@ -15,7 +25,8 @@ export class Audio {
     this.oscillator.connect(this.gain);
   }
 
-  playNote(frequency) {
+  playNote(note) {
+    const frequency = this.notes.find(el => el.noteName === note).noteFrequency;
     this.createOscillator();
     this.createGain();
 
@@ -25,25 +36,5 @@ export class Audio {
     this.gain.gain.exponentialRampToValueAtTime(0.001, this.now + 1);
     this.oscillator.start(this.now);
     this.oscillator.stop(this.now + 1);
-  }
-
-  chooseNote(note) {
-    if (note === "A0") {
-      this.playNote(27.50);
-    } else if (note === "A1") {
-      this.playNote(55);
-    } else if (note === "A2") {
-      this.playNote(110);
-    } else if (note === "A3") {
-      this.playNote(220);
-    } else if (note === "A4") {
-      this.playNote(440);
-    } else if (note === "A5") {
-      this.playNote(880);
-    } else if (note === "A6") {
-      this.playNote(1760);
-    } else if (note === "A7") {
-      this.playNote(3520);
-    }
   }
 }
