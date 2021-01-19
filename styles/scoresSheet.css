@@ -1,29 +1,105 @@
+[data-ss-empty-sheet] {
+    height: 80vh;
+    min-width: 400px;
+    max-height: 600px;
+    margin-top: 1%;
+}
 [data-ss-table] {
     /* position: absolute; */
     display: flex;
     justify-content: center;
     align-items: center;
-    grid-row: 2 / 4;
-    grid-column: 5 / 7;
-    /* width: 20vw; */
-    /* height:40vh; */
-    background-color: wheat;
 }
 [data-ss-table-mc] {
     display:grid;
-    grid-template-rows: repeat(14,25px);
-    grid-template-columns: repeat(1,100px);
+    grid-template-rows: repeat(14,20px);
+    grid-template-columns: repeat(1,110px);
 }
 [data-player-columns] {
     display: grid;
 }
 [data-player-column] {
     display:grid;
-    grid-template-rows: repeat(14,25px);
+    grid-template-rows: repeat(14,20px);
     grid-template-columns: repeat(1,70px);
     text-align:center;
-    
 }
 .accepted {
     color:red;
+}
+[data-indicators] {
+    margin: 20% 5% 10%;
+    line-height: 5px;
+}
+[data-current-round-indicator],
+[data-current-player-indicator],
+[data-current-attempt-indicator] {
+    font-size:17px;
+} 
+
+[data-ss-heading] {
+    line-height: 1.15;
+    border-bottom: solid;
+    width: fit-content;
+    margin: 4% auto;
+}
+
+@media screen and (max-width: 1024px) {
+    [data-ss-empty-sheet]  {
+        position: absolute;
+        display: none;
+    }
+    
+}
+@media screen and (max-width: 480px) {
+    [data-indicators] {
+        margin: 15% 2% 2%;
+        line-height: 5px;
+    }
+    [data-current-round-indicator],
+    [data-current-player-indicator],
+    [data-current-attempt-indicator] {
+        font-size:14px;
+    } 
+    [data-ss-empty-sheet] {
+        height: 70vh;
+        max-height: 560px;
+        margin-top: 0%;
+        min-width: 310px;
+    }
+    [data-ss-table] {
+        /* position: absolute; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size:12px;
+    
+    }
+    [data-ss-table-mc] {
+        display:grid;
+        grid-template-rows: repeat(14,17px);
+        grid-template-columns: repeat(1,100px);
+    }
+    [data-player-columns] {
+        display: grid;
+    }
+    [data-player-column] {
+        display:grid;
+        grid-template-rows: repeat(14,17px);
+        grid-template-columns: repeat(1,50px);
+        text-align:center;
+    } 
+    [data-ss-heading] {
+       font-size: 20px;
+    }
+    [data-indicators] {
+        font-size: 14px;
+    }
+}
+
+.open {
+    display:block;
+}
+.current {
+    background:wheat;
 }

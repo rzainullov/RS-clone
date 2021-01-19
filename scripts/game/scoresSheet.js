@@ -7,14 +7,23 @@ export class ScoresSheet {
   constructor(gameData, settings) {
     this.main = document.querySelector("[data-main]");
     this.settings = settings;
+    this.gameData = gameData;
     this.language = this.settings[2].settingValue;
+    this.langIdx = languages.findIndex(item => item.langName === this.language);
     this.totalCombination = gameData.totalCombination;
     this.numberPlayer = settings[0].settingValue;
     this.players = gameData.players;
     this.currentPlayer = gameData.currentPlayer;
+    this.emptySheet = null;
+    this.heading = null;
     this.scoresSheetTable = null;
     this.mainColumn = null;
     this.playerColumns = null;
+    this.indicators = null;
+    this.currentPlayerIndicator = null;
+    this.currentRoundIndicator = null;
+    this.currentAttemptIndicator = null;
+    this.currentColumn = null;
     this.combos = {
       one: 0,
       two: 0,
@@ -30,22 +39,6 @@ export class ScoresSheet {
       longStraight: 0
     };
     this.values = [];
-    this.nameOfTableCells = {
-      "player-name": "Player name",
-      one: "One",
-      two: "Two",
-      three: "Three",
-      four: "Four",
-      five: "Five",
-      six: "Six",
-      sum: "Sum",
-      poker: "Poker",
-      fourOfKind: "FourOfKind",
-      fullHouse: "FullHouse",
-      smallStraight: "SmallStraight",
-      longStraight: "LongStraight",
-      Total: "Total"
-    };
   }
 
   updateScoresSheet(totalCombination) {
@@ -153,19 +146,55 @@ export class ScoresSheet {
   }
 
   renderScoresSheet() {
+    this.createEmptySheet();
+    this.createIndicators();
+    this.addIndicators();
+    this.createHeading();
+    this.addHeading();
     this.createScoresSheetTable();
+    this.addScoresSheetTable();
     this.createMainColumn();
     this.addMainColumn();
     this.createPlayerColumns();
     this.addPlayerColumns();
     this.setEventListener();
-    return this.scoresSheetTable;
+    return this.emptySheet;
+  }
+
+  createEmptySheet() {
+    const emptySheet = document.createElement("div");
+    emptySheet.setAttribute("data-ss-empty-sheet", "");
+    emptySheet.style.background = "url('img/note.png') center / 100% 100% no-repeat";
+    this.emptySheet = emptySheet;
+  }
+
+  addEmptySheet() {
+    this.main.appendChild(this.emptySheet);
+  }
+
+  createHeading() {
+    const heading = document.createElement("h1");
+    heading.setAttribute("data-ss-heading", "");
+    heading.textContent = `${languages[this.langIdx].scoresSheet[3]}`;
+    this.heading = heading;
+  }
+
+  addHeading() {
+    this.emptySheet.appendChild(this.heading);
+  }
+
+  changeLanguageOfHeading() {
+    this.heading.textContent = `${languages[this.langIdx].scoresSheet[3]}`;
   }
 
   createScoresSheetTable() {
     const scoresSheetsTable = document.createElement("div");
     scoresSheetsTable.setAttribute("data-ss-table", "");
     this.scoresSheetTable = scoresSheetsTable;
+  }
+
+  addScoresSheetTable() {
+    this.emptySheet.appendChild(this.scoresSheetTable);
   }
 
   createMainColumn() {
@@ -184,10 +213,9 @@ export class ScoresSheet {
     this.mainColumn = mainColumn;
   }
 
-  changeColumnLanguage(language) {
+  changeColumnLanguage() {
     const cells = this.mainColumn.childNodes;
-    const langIdx = languages.findIndex(item => item.langName === language);
-    const propsText = Object.values(languages[langIdx].nameOfTableCells);
+    const propsText = Object.values(languages[this.langIdx].nameOfTableCells);
     cells.forEach((item, idx) => {
       const cell = item;
       cell.textContent = propsText[idx];
@@ -200,13 +228,12 @@ export class ScoresSheet {
 
   createPlayerColumns() {
     const playerColumns = document.createElement("div");
-    const langIdx = languages.findIndex(item => item.langName === this.language);
     playerColumns.setAttribute("data-player-columns", "");
     playerColumns.style.gridTemplateColumns = `repeat(${this.numberPlayer},1fr)`;
     this.players.forEach((player) => {
       const playerColumn = document.createElement("div");
       playerColumn.setAttribute("data-player-column", `${player.playerName}`);
-      const props = Object.keys(languages[langIdx].nameOfTableCells);
+      const props = Object.keys(languages[this.langIdx].nameOfTableCells);
       props.forEach((item) => {
         const cell = document.createElement("div");
         cell.setAttribute("data-player-prop", `${item}`);
@@ -265,6 +292,54 @@ export class ScoresSheet {
       game.clearDiceCells();
       game.currentGameData.currentCombination = [];
     }
+  }
+
+  createIndicators() {
+    const currentRoundIndicator = document.createElement("p");
+    currentRoundIndicator.setAttribute("data-current-round-indicator", "");
+    currentRoundIndicator.textContent = `${languages[this.langIdx].scoresSheet[0]}:${this.gameData.playRound}`;
+    this.currentRoundIndicator = currentRoundIndicator;
+    const currentPlayerIndicator = document.createElement("p");
+    currentPlayerIndicator.setAttribute("data-current-player-indicator", "");
+    currentPlayerIndicator.textContent = `${languages[this.langIdx].scoresSheet[1]}:${this.gameData.currentPlayer}`;
+    this.currentPlayerIndicator = currentPlayerIndicator;
+    const currentAttemptIndicator = document.createElement("p");
+    currentAttemptIndicator.setAttribute("data-current-attempt-indicator", "");
+    currentAttemptIndicator.textContent = `${languages[this.langIdx].scoresSheet[2]}:${this.gameData.currentAttempt}`;
+    this.currentAttemptIndicator = currentAttemptIndicator;
+  }
+
+  changeLanguageOfIndicators() {
+    const currentRoundIndicator = this.currentRoundIndicator;
+    const currentPlayerIndicator = this.currentPlayerIndicator;
+    const currentAttemptIndicator = this.currentAttemptIndicator;
+    currentRoundIndicator.textContent = `${languages[this.langIdx].scoresSheet[0]}:${this.gameData.playRound}`;
+    currentPlayerIndicator.textContent = `${languages[this.langIdx].scoresSheet[1]}:${this.gameData.currentPlayer}`;
+    currentAttemptIndicator.textContent = `${languages[this.langIdx].scoresSheet[2]}:${this.gameData.currentAttempt}`;
+  }
+
+  addIndicators() {
+    const indicators = document.createElement("div");
+    indicators.setAttribute("data-indicators", "");
+    this.indicators = indicators;
+    this.indicators.appendChild(this.currentRoundIndicator);
+    this.indicators.appendChild(this.currentPlayerIndicator);
+    this.indicators.appendChild(this.currentAttemptIndicator);
+    this.emptySheet.appendChild(this.indicators);
+  }
+
+  changeIndicator(indicator, text) {
+    this.currentIndicator = document.querySelector(`[${indicator}]`);
+    this.currentIndicator.textContent = text;
+  }
+
+  markCurrentPlayer() {
+    if (this.currentColumn !== null) {
+      this.currentColumn.classList.remove("current");
+    }
+    const currentColumn = document.querySelector(`[data-player-column = '${this.gameData.currentPlayer}']`);
+    this.currentColumn = currentColumn;
+    currentColumn.classList.add("current");
   }
 
   setEventListener() {

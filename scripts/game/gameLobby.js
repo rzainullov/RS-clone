@@ -7,6 +7,7 @@ export class GameLobby {
   constructor(settings) {
     this.settings = settings;
     this.language = this.settings[2].settingValue;
+    this.langIdx = languages.findIndex(item => item.langName === this.language);
     this.color = this.settings[4].settingValue;
     this.lobbyCloth = null;
     this.lobbyClothContainer = null;
@@ -14,6 +15,7 @@ export class GameLobby {
     this.diceCells = null;
     this.rollDiceArea = null;
     this.rollButton = null;
+    this.rollDiceButton = null;
   }
 
   renderGameLobby() {
@@ -35,7 +37,7 @@ export class GameLobby {
   createLobbyCloth() {
     const lobbyCloth = document.createElement("div");
     lobbyCloth.setAttribute("data-lobby-cloth", "");
-    lobbyCloth.style.background = `center / contain no-repeat url('img/${this.color}.png')`;
+    lobbyCloth.style.background = `url('img/${this.color}.png') center / 90% 90% no-repeat`;
     this.lobbyCloth = lobbyCloth;
   }
 
@@ -51,16 +53,14 @@ export class GameLobby {
 
   createDiceCellsSubscriptions() {
     const diceCellsSubscription = document.createElement("p");
-    const langIdx = languages.findIndex(item => item.langName === this.language);
     diceCellsSubscription.setAttribute("data-dice-cells-subscription", "");
-    diceCellsSubscription.textContent = `${languages[langIdx].gameLobby[0]}`;
+    diceCellsSubscription.textContent = `${languages[this.langIdx].gameLobby[0]}`;
     this.diceCellsSubscription = diceCellsSubscription;
   }
 
-  changeLanguageOfDiceCellsSubscription(language) {
+  changeLanguageOfDiceCellsSubscription() {
     const diceCellsSubscription = this.diceCellsSubscription;
-    const langIdx = languages.findIndex(item => item.langName === language);
-    diceCellsSubscription.textContent = `${languages[langIdx].gameLobby[0]}`;
+    diceCellsSubscription.textContent = `${languages[this.langIdx].gameLobby[0]}`;
   }
 
   addDiceCellsSubscriptions() {
@@ -91,30 +91,33 @@ export class GameLobby {
 
   createButtons() {
     const rollButton = document.createElement("div");
-    const langIdx = languages.findIndex(item => item.langName === this.language);
+    const rollDiceButton = document.createElement("img");
+    rollDiceButton.src = "img/roll.svg";
     rollButton.setAttribute("data-roll-btn", "");
-    rollButton.textContent = `${languages[langIdx].gameLobby[1]}`;
+    rollDiceButton.setAttribute("data-roll-dice-btn", "");
+    rollButton.textContent = `${languages[this.langIdx].gameLobby[1]}`;
     this.rollButton = rollButton;
+    this.rollDiceButton = rollDiceButton;
   }
 
-  changeLanguageOfButton(language) {
+  changeLanguageOfButton() {
     const rollButton = this.rollButton;
-    const langIdx = languages.findIndex(item => item.langName === language);
-    rollButton.textContent = `${languages[langIdx].gameLobby[1]}`;
+    console.log(this.langIdx);
+    rollButton.textContent = `${languages[this.langIdx].gameLobby[1]}`;
   }
 
   addButtons() {
+    this.lobbyClothContainer.appendChild(this.rollDiceButton);
     this.lobbyClothContainer.appendChild(this.rollButton);
   }
 
   setEventListener() {
     const lobbyCloth = this.lobbyCloth;
     lobbyCloth.addEventListener("click", (e) => {
-      if (e.target === document.querySelector("[data-roll-btn]")) {
+      if (e.target === document.querySelector("[data-roll-btn]") || e.target === document.querySelector("[data-roll-dice-btn]")) {
         game.rollTheDices();
         game.currentCombinationIsChosen = false;
       }
-
       if (e.target.parentNode === document.querySelector("[data-roll-dice-area]")) {
         game.moveDiceToDicesCells(e.target);
       }

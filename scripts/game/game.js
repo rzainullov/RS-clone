@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import { initGameArea, gameArea } from "./gameArea.js";
+import { initGameArea } from "./gameArea.js";
 import { gameLobby } from "./gameLobby.js";
 import { scoresSheet } from "./scoresSheet.js";
 import { languages } from "../language.js";
@@ -116,12 +116,13 @@ export class Game {
     const langIdx = languages.findIndex(item => item.langName === this.language);
     const indexPlayer = players.findIndex(player => player.playerName === currentPlayer);
     this.currentGameData.currentPlayer = this.currentGameData.players[indexPlayer + 1].playerName;
-    gameArea.changeIndicator("data-current-player-indicator", `${languages[langIdx].gameArea[1]}:${this.currentGameData.currentPlayer}`);
+    scoresSheet.markCurrentPlayer();
+    scoresSheet.changeIndicator("data-current-player-indicator", `${languages[langIdx].gameArea[1]}:${this.currentGameData.currentPlayer}`);
   }
 
   changeCurrentAttemptIndicator() {
     const langIdx = languages.findIndex(item => item.langName === this.language);
-    gameArea.changeIndicator("data-current-attempt-indicator", `${languages[langIdx].gameArea[2]}:${this.currentGameData.currentAttempt}`);
+    scoresSheet.changeIndicator("data-current-attempt-indicator", `${languages[langIdx].gameArea[2]}:${this.currentGameData.currentAttempt}`);
   }
 
   changeCurrentRound() {
@@ -130,7 +131,7 @@ export class Game {
     if (this.currentGameData.playRound === 13) {
       this.finishGame();
     }
-    gameArea.changeIndicator("data-current-round-indicator", `${languages[langIdx].gameArea[0]}:${this.currentGameData.playRound}`);
+    scoresSheet.changeIndicator("data-current-round-indicator", `${languages[langIdx].gameArea[0]}:${this.currentGameData.playRound}`);
   }
 
   getCurrentDices() {
