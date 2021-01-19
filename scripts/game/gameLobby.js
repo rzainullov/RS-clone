@@ -102,7 +102,6 @@ export class GameLobby {
 
   changeLanguageOfButton() {
     const rollButton = this.rollButton;
-    console.log(this.langIdx);
     rollButton.textContent = `${languages[this.langIdx].gameLobby[1]}`;
   }
 
