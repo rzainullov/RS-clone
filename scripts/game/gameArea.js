@@ -28,7 +28,6 @@ export class GameArea {
 
   addMainContainer() {
     this.main.appendChild(this.mainContainer);
-    scoresSheet.markCurrentPlayer();
   }
 
   renderGameArea() {

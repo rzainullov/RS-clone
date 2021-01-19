@@ -26,6 +26,7 @@ export class Game {
     if (this.savedGameData === null) {
       this.createNewGame();
       initGameArea(this.settings, this.currentGameData);
+      scoresSheet.markCurrentPlayer();
     } else {
       this.loadGame();
     }
