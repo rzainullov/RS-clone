@@ -34,11 +34,17 @@ export class Game {
 
   createNewGame() {
     this.currentGameData = JSON.parse(JSON.stringify(this.templateGameData));
+    this.setCurrentPlayer();
     this.players.forEach(player => {
       let currentPlayer = JSON.parse(JSON.stringify(this.templatePlayerData));
       currentPlayer.playerName = player;
       this.currentGameData.players.push(currentPlayer);
     });
+  }
+
+  setCurrentPlayer() {
+    const currentPlayer = this.players[0];
+    this.currentGameData.currentPlayer = currentPlayer;
   }
 
   //   loadGame() {
