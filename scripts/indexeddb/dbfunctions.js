@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-export const DB_NAME = "bones_poker";
+export const DB_NAME = "dice_poker";
 export const PLAYERS_TABLE = "players";
 export const SETTINGS_TABLE = "settings";
 export const PLAYS_TABLE = "plays";
@@ -42,23 +42,16 @@ export function connectDB(dbDefinition) {
 export function saveData(dbDefinition, table, data) {
   return new Promise(() => {
     let openRequest = indexedDB.open(dbDefinition.name);
-    openRequest.onsuccess = function connect(event) {
+    openRequest.onsuccess = function connect() {
       let database = openRequest.result;
       let curTransaction = database.transaction(table.name, "readwrite");
       let store = curTransaction.objectStore(table.name);
-      let putRequest = store.put(data);
-      putRequest.onsuccess = function success(event) {
-        // console.log(event);
-      }
-
-      putRequest.onabort = function abort(error) {
-        console.log(error);
-      };
+      store.put(data);
     };
 
     openRequest.onerror = function error(event) {
-      let error = event.target.error;
-      console.log(error);
+      let reqerror = event.target.error;
+      return reqerror;
     };
   });
 }
@@ -75,14 +68,14 @@ export function loadData(dbDefinition, table, key) {
         resolve(event.target.result);
       };
 
-      getRequest.onabort = function abort(error) {
+      getRequest.onabort = function abort() {
         reject(new Error("Ошибка чтения"));
       };
     };
 
     openRequest.onerror = function error(event) {
-      let error = event.target.error;
-      console.log(error);
+      let reqerror = event.target.error;
+      return reqerror;
     };
   });
 }

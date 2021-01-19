@@ -10,14 +10,14 @@ export class ModalSignup extends Modal {
 
   onSuccsessSignUp() {
     modalTypesObject.modalLogin = new ModalLogin()
-      .loadSettings()
+      .getSettings()
       .createModalLogin();
     return this;
   }
 
   onErrorSignUp() {
     modalTypesObject.modalSignup = new ModalSignup()
-      .loadSettings()
+      .getSettings()
       .createModalSignup()
       .addErrorMessage();
     return this;
@@ -35,7 +35,7 @@ export class ModalSignup extends Modal {
 
   pushBack() {
     modalTypesObject.modalLogin = new ModalLogin()
-      .loadSettings()
+      .getSettings()
       .createModalLogin();
     return this;
   }

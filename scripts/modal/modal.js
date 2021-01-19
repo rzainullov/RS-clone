@@ -3,6 +3,8 @@ import { languages } from "../language.js";
 import { DB } from "../../main.js";
 import { defaultSettings } from "../default.js";
 import { audioAPI } from "../../main.js";
+import { globalSettings } from "../../main.js";
+import { currentLogin } from "../../main.js";
 
 export class Modal {
   constructor() {
@@ -33,24 +35,16 @@ export class Modal {
     this.modal.classList.remove("active");
   }
 
-  loadSettings() {
-    this.localSettings = JSON.parse(localStorage.getItem("settings"));
-    return this;
-  }
-
-  getSettings(settings) {
-    this.localSettings = settings || defaultSettings;
+  getSettings() {
+    this.localSettings = globalSettings.getSettings() || defaultSettings;
     return this;
   }
 
   setSettings() {
-    localStorage.setItem("settings", JSON.stringify(this.localSettings));
-    DB.saveSettings(this.localSettings);
-    return this;
-  }
-
-  deleteSettings() {
-    localStorage.setItem("settings", null);
+    this.localSettings.playerName = currentLogin.playerName;
+    globalSettings.setSettings(this.localSettings);
+    localStorage.setItem("settings", JSON.stringify(globalSettings.getSettings()));
+    DB.saveSettings(globalSettings.getSettings());
     return this;
   }
 
