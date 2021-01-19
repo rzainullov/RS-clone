@@ -13,6 +13,7 @@ export class Game {
     this.settings = settings.playerSettings;
     this.players = this.settings[1].settingValue;
     this.language = this.settings[2].settingValue;
+    this.langIdx = languages.findIndex(item => item.langName === this.language);
     this.master = settings.playerName;
     this.savedGameData = savedGame;
     this.currentGameData = null;
@@ -113,25 +114,22 @@ export class Game {
   changeCurrentPlayer() {
     const currentPlayer = this.currentGameData.currentPlayer;
     const players = this.currentGameData.players;
-    const langIdx = languages.findIndex(item => item.langName === this.language);
     const indexPlayer = players.findIndex(player => player.playerName === currentPlayer);
     this.currentGameData.currentPlayer = this.currentGameData.players[indexPlayer + 1].playerName;
     scoresSheet.markCurrentPlayer();
-    scoresSheet.changeIndicator("data-current-player-indicator", `${languages[langIdx].gameArea[1]}:${this.currentGameData.currentPlayer}`);
+    scoresSheet.changeIndicator("data-current-player-indicator", `${languages[this.langIdx].scoresSheet[1]}:${this.currentGameData.currentPlayer}`);
   }
 
   changeCurrentAttemptIndicator() {
-    const langIdx = languages.findIndex(item => item.langName === this.language);
-    scoresSheet.changeIndicator("data-current-attempt-indicator", `${languages[langIdx].gameArea[2]}:${this.currentGameData.currentAttempt}`);
+    scoresSheet.changeIndicator("data-current-attempt-indicator", `${languages[this.langIdx].scoresSheet[2]}:${this.currentGameData.currentAttempt}`);
   }
 
   changeCurrentRound() {
-    const langIdx = languages.findIndex(item => item.langName === this.language);
     this.currentGameData.playRound += 1;
     if (this.currentGameData.playRound === 13) {
       this.finishGame();
     }
-    scoresSheet.changeIndicator("data-current-round-indicator", `${languages[langIdx].gameArea[0]}:${this.currentGameData.playRound}`);
+    scoresSheet.changeIndicator("data-current-round-indicator", `${languages[this.langIdx].scoresSheet[0]}:${this.currentGameData.playRound}`);
   }
 
   getCurrentDices() {
