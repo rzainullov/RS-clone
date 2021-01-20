@@ -3,6 +3,7 @@
 import { languages } from "../language.js";
 import { game } from "./game.js";
 export var scoresSheet = null;
+import { audioAPI } from "../../main.js";
 export class ScoresSheet {
   constructor(gameData, settings) {
     this.main = document.querySelector("[data-main]");
@@ -342,9 +343,25 @@ export class ScoresSheet {
     currentColumn.classList.add("current");
   }
 
+  checkPlaySound(note) {
+    const isAudioOn = this.settings[3].settingValue === "on";
+    if (isAudioOn) {
+      audioAPI.playNote(note);
+    }
+  }
+
   setEventListener() {
     this.scoresSheetTable.addEventListener("click", (e) => {
-      this.acceptCombination(e.target);
+      const columnChildren = this.currentColumn.childNodes;
+      if (e.target.parentNode === this.currentColumn) {
+        if (e.target !== columnChildren[0] && e.target !== columnChildren[13]) {
+          this.checkPlaySound("A2");
+          this.acceptCombination(e.target);
+        }
+      } else {
+        this.checkPlaySound("A2");
+        this.checkPlaySound("A2");
+      }
     });
   }
 }
