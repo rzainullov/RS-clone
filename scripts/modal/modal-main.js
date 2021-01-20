@@ -45,7 +45,7 @@ export class ModalMain extends Modal {
     wrapSettings.classList.add("modal__item");
     wrapSettings.addEventListener("click", () => {
       this.checkPlaySound("A4");
-      modalTypesObject.modalSettings = new ModalSettings().loadSettings().createModalSettings();
+      modalTypesObject.modalSettings = new ModalSettings().getSettings().createModalSettings();
     });
     this.wrap.appendChild(wrapSettings);
 
@@ -54,7 +54,7 @@ export class ModalMain extends Modal {
     wrapLogin.classList.add("modal__item");
     wrapLogin.addEventListener("click", () => {
       this.checkPlaySound("A4");
-      modalTypesObject.modalLogin = new ModalLogin().loadSettings().createModalLogin();
+      modalTypesObject.modalLogin = new ModalLogin().getSettings().createModalLogin();
     });
     this.wrap.appendChild(wrapLogin);
 
@@ -63,7 +63,7 @@ export class ModalMain extends Modal {
     wrapRules.classList.add("modal__item");
     wrapRules.addEventListener("click", () => {
       this.checkPlaySound("A4");
-      modalTypesObject.modalRules = new ModalRules().loadSettings().createModalRules();
+      modalTypesObject.modalRules = new ModalRules().getSettings().createModalRules();
     });
     this.wrap.appendChild(wrapRules);
     return this;
@@ -84,4 +84,11 @@ export class ModalMain extends Modal {
     modalTypesObject.modal.makeUnactive();
     return this;
   }
+}
+
+export function initModalMain(settings, isInitLogin) {
+  modalTypesObject.modalLogin = new ModalMain(settings, isInitLogin)
+    .getSettings()
+    .setSettings()
+    .createModalMain();
 }

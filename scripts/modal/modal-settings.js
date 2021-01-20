@@ -50,6 +50,9 @@ export class ModalSettings extends Modal {
     wrapLanguage.classList.add("modal__text-item");
     wrapLanguage.addEventListener("click", () => {
       this.checkPlaySound("A2");
+      // а если у нас 10 языков будет куча else if else if
+      // надо функцию написать nextLanguage(curLanguage)
+      // которая по куругу их перебирает
       if (languageType === "English") {
         languageType = "Russian";
       } else if (languageType === "Russian") {
@@ -92,7 +95,7 @@ export class ModalSettings extends Modal {
     saveSettingsBtn.addEventListener("click", () => {
       this.checkPlaySound("A2");
       this.setSettings();
-      modalTypesObject.modalSettings = new ModalSettings().loadSettings().createModalSettings();
+      modalTypesObject.modalSettings = new ModalSettings().getSettings().createModalSettings();
     });
     this.wrap.appendChild(saveSettingsBtn);
 
@@ -101,7 +104,7 @@ export class ModalSettings extends Modal {
     backSettings.classList.add("modal__item");
     backSettings.addEventListener("click", () => {
       this.checkPlaySound("A2");
-      modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
+      modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
     });
     this.wrap.appendChild(backSettings);
     return this;

@@ -5,23 +5,23 @@ import { Modal } from "./modal.js";
 import { ModalMain } from "./modal-main.js";
 import { ModalSignup } from "./modal-signup.js";
 import { currentLogin } from "../../main.js";
+import { loadSettingsFromDB } from "../indexeddb/settings.js";
+import { initModalMain } from "./modal-main.js";
 
 export class ModalLogin extends Modal {
-  constructor() {
+  constructor(settings, isInitLogin = true) {
     super();
+    this.isInitLogin = isInitLogin;
   }
 
   onVerifiedLogin() {
-    modalTypesObject.modalMain = new ModalMain()
-      .getSettings()
-      .setSettings()
-      .createModalMain();
+    loadSettingsFromDB(initModalMain);
     return this;
   }
 
   onUnVerifiedLogin() {
     modalTypesObject.modalLogin = new ModalLogin()
-      .loadSettings()
+      .getSettings()
       .createModalLogin()
       .addErrorMessage();
     return this;
@@ -35,13 +35,13 @@ export class ModalLogin extends Modal {
 
   pushSignup() {
     this.checkPlaySound("A3");
-    modalTypesObject.modalSignup = new ModalSignup().loadSettings().createModalSignup();
+    modalTypesObject.modalSignup = new ModalSignup().getSettings().createModalSignup();
     return this;
   }
 
   pushBack() {
     this.checkPlaySound("A3");
-    modalTypesObject.modalMain = new ModalMain().loadSettings().createModalMain();
+    modalTypesObject.modalMain = new ModalMain().getSettings().createModalMain();
     return this;
   }
 
@@ -78,13 +78,15 @@ export class ModalLogin extends Modal {
     });
     this.wrap.appendChild(signup);
 
-    const back = document.createElement("div");
-    back.innerText = this.wordsArr[6];
-    back.classList.add("modal__item");
-    back.addEventListener("click", () => {
-      this.pushBack();
-    });
-    this.wrap.appendChild(back);
+    if (!this.isInitLogin) {
+      const back = document.createElement("div");
+      back.innerText = this.wordsArr[6];
+      back.classList.add("modal__item");
+      back.addEventListener("click", () => {
+        this.pushBack();
+      });
+      this.wrap.appendChild(back);
+    }
     return this;
   }
 
@@ -95,4 +97,11 @@ export class ModalLogin extends Modal {
     this.wrap.prepend(err);
     return this;
   }
+}
+
+export function initModalLogin(settings, isInitLogin) {
+  modalTypesObject.modalLogin = new ModalLogin(settings, isInitLogin)
+    .getSettings()
+    .setSettings()
+    .createModalLogin();
 }
