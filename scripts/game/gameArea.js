@@ -4,6 +4,7 @@ import { scoresSheet, initScoresSheet } from "./scoresSheet.js";
 import { game } from "./game.js";
 import { languages } from "../language.js";
 import { modalTypesObject } from "../../main.js";
+import { audioAPI } from "../../main.js";
 
 export var gameArea = null;
 
@@ -104,6 +105,13 @@ export class GameArea {
     scoresSheet.changeLanguageOfHeading(this.language);
   }
 
+  checkPlaySound(note) {
+    const isAudioOn = this.settings[3].settingValue === "on";
+    if (isAudioOn) {
+      audioAPI.playNote(note);
+    }
+  }
+
   setEventListener() {
     this.modal = document.querySelector("[data-modal]");
     this.modal.addEventListener("click", (e) => {
@@ -112,6 +120,7 @@ export class GameArea {
       }
     });
     this.scoresSheetButton.addEventListener("click", (e) => {
+      this.checkPlaySound("A3");
       if (e.target.textContent === `${languages[this.langIdx].gameArea[0]}`) {
         this.openScoresSheet(this.langIdx);
       } else {
