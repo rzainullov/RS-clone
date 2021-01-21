@@ -34,7 +34,7 @@ export class ModalSignup extends Modal {
   }
 
   pushBack() {
-    modalTypesObject.modalLogin = new ModalLogin()
+    modalTypesObject.modalLogin = new ModalLogin(flase)
       .getSettings()
       .createModalLogin();
     return this;

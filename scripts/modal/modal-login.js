@@ -9,7 +9,7 @@ import { loadSettingsFromDB } from "../indexeddb/settings.js";
 import { initModalMain } from "./modal-main.js";
 
 export class ModalLogin extends Modal {
-  constructor(settings, isInitLogin = true) {
+  constructor(isInitLogin = true) {
     super();
     this.isInitLogin = isInitLogin;
   }
@@ -99,8 +99,8 @@ export class ModalLogin extends Modal {
   }
 }
 
-export function initModalLogin(settings, isInitLogin) {
-  modalTypesObject.modalLogin = new ModalLogin(settings, isInitLogin)
+export function initModalLogin(isInitLogin) {
+  modalTypesObject.modalLogin = new ModalLogin(isInitLogin)
     .getSettings()
     .setSettings()
     .createModalLogin();

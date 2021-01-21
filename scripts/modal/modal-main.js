@@ -54,7 +54,7 @@ export class ModalMain extends Modal {
     wrapLogin.classList.add("modal__item");
     wrapLogin.addEventListener("click", () => {
       this.checkPlaySound("A4");
-      modalTypesObject.modalLogin = new ModalLogin().getSettings().createModalLogin();
+      modalTypesObject.modalLogin = new ModalLogin(false).getSettings().createModalLogin();
     });
     this.wrap.appendChild(wrapLogin);
 
