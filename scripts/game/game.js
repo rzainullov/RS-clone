@@ -5,6 +5,7 @@ import { scoresSheet } from "./scoresSheet.js";
 import { languages } from "../language.js";
 import { defaultGameSettings } from "../default.js";
 import { defaultPlayerData } from "../default.js";
+import { audioAPI } from "../../main.js";
 
 export var game = null;
 
@@ -27,6 +28,7 @@ export class Game {
       this.createNewGame();
       initGameArea(this.settings, this.currentGameData);
       scoresSheet.markCurrentPlayer();
+      this.setHotKeys();
     } else {
       this.loadGame();
     }
@@ -58,6 +60,7 @@ export class Game {
   }
 
   rollTheDices() {
+    this.checkPlaySound("A1");
     if (game.currentGameData.currentAttempt === 3 && this.currentCombinationIsChosen === false) {
       return null;
     }
@@ -80,6 +83,7 @@ export class Game {
       scoresSheet.updateScoresSheet(this.currentGameData.totalCombination);
     }
     scoresSheet.putValuesInTable(this.currentGameData.currentPlayer);
+    game.currentCombinationIsChosen = false;
     return this;
   }
 
@@ -162,11 +166,13 @@ export class Game {
   }
 
   moveDiceToDicesCells(target) {
+    this.checkPlaySound("A2");
     this.putChosenDiceInFreeDiceCell(target);
     this.removeOneDice(target);
   }
 
   moveDiceToRollDiceArea(target) {
+    this.checkPlaySound("A1");
     this.putChosenDiceInRollDiceArea(target);
     this.removeOneDice(target);
   }
@@ -217,6 +223,39 @@ export class Game {
   finishGame() {
     this.scoresSheet = scoresSheet;
     this.scoresSheet.getTotal();
+  }
+
+  checkPlaySound(note) {
+    const isAudioOn = this.settings[3].settingValue === "on";
+    if (isAudioOn) {
+      audioAPI.playNote(note);
+    }
+  }
+
+  setHotKeys() {
+    this.window = window;
+    this.window.addEventListener("keypress", (e) => {
+      const keys = {
+        " ": () => this.rollTheDices(),
+        1: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[1]),
+        2: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[2]),
+        3: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[3]),
+        4: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[4]),
+        5: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[5]),
+        6: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[6]),
+        7: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[7]),
+        8: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[8]),
+        9: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[9]),
+        0: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[10]),
+        "-": () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[11]),
+        "=": () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[12])
+      };
+      var pushTarget = () => keys[e.key]();
+      var isKey = Object.prototype.hasOwnProperty.call(keys, e.key);
+      if (isKey) {
+        pushTarget();
+      }
+    });
   }
 }
 
