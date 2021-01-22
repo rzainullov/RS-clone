@@ -2,7 +2,6 @@
 import { game } from "./game.js";
 export var gameLobby = null;
 import { languages } from "../language.js";
-import { audioAPI } from "../../main.js";
 
 export class GameLobby {
   constructor(settings) {
@@ -111,28 +110,17 @@ export class GameLobby {
     this.lobbyClothContainer.appendChild(this.rollButton);
   }
 
-  checkPlaySound(note) {
-    const isAudioOn = this.settings[3].settingValue === "on";
-    if (isAudioOn) {
-      audioAPI.playNote(note);
-    }
-  }
-
   setEventListener() {
     const lobbyCloth = this.lobbyCloth;
     lobbyCloth.addEventListener("click", (e) => {
       if (e.target === document.querySelector("[data-roll-btn]") || e.target === document.querySelector("[data-roll-dice-btn]")) {
-        this.checkPlaySound("A1");
         game.rollTheDices();
-        game.currentCombinationIsChosen = false;
       }
       if (e.target.style.background !== "" && e.target.style.background !== "none" && e.target.style.background !== undefined) {
         if (e.target.parentNode === document.querySelector("[data-roll-dice-area]")) {
-          this.checkPlaySound("A2");
           game.moveDiceToDicesCells(e.target);
         }
         if (e.target.parentNode === document.querySelector("[data-dice-cells]")) {
-          this.checkPlaySound("A1");
           game.moveDiceToRollDiceArea(e.target);
         }
       }

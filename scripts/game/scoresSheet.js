@@ -81,6 +81,7 @@ export class ScoresSheet {
   }
 
   getPoker() {
+    this.combos.poker = 0;
     const oneFive = this.values.filter(digit => digit === 5).length;
     if (oneFive === 1) {
       this.combos.poker = 50;
@@ -88,6 +89,7 @@ export class ScoresSheet {
   }
 
   getFourOfKind() {
+    this.combos.fourOfKind = 0;
     const oneFour = this.values.filter(digit => digit === 4).length;
     if (oneFour === 1) {
       this.combos.fourOfKind = this.combos.sum;
@@ -95,6 +97,7 @@ export class ScoresSheet {
   }
 
   getFullHouse() {
+    this.combos.fullHouse = 0;
     const oneTwo = this.values.filter(digit => digit === 2).length === 1;
     const oneThree = this.values.filter(digit => digit === 3).length === 1;
     if (oneTwo && oneThree) {
@@ -103,6 +106,7 @@ export class ScoresSheet {
   }
 
   getSmallStraight() {
+    this.combos.smallStraight = 0;
     if (this.values[1] > 0 && this.values[2] > 0 && this.values[3] > 0 && this.values[4] > 0) {
       this.combos.smallStraight = 25;
     }
@@ -114,6 +118,7 @@ export class ScoresSheet {
   }
 
   getLongStraight() {
+    this.combos.longStraight = 0;
     const ones = this.values.filter(digit => digit === 1).length >= 5;
     if (ones && this.values[3] === 1 && this.values[4] === 1) {
       if (this.values[2] === 1 && this.values[5] === 1) {
@@ -123,6 +128,7 @@ export class ScoresSheet {
   }
 
   getSum() {
+    this.combos.sum = 0;
     this.combos.sum = this.values.reduce((acc, digit, i) => acc + (digit * i));
   }
 
@@ -272,6 +278,7 @@ export class ScoresSheet {
   }
 
   acceptCombination(target) {
+    this.checkPlaySound("A2");
     if (target.attributes[0].name === "data-player-prop" && !target.classList.contains("accepted")) {
       const parent = target.parentNode.childNodes;
       target.classList.add("accepted");
@@ -355,7 +362,6 @@ export class ScoresSheet {
       const columnChildren = this.currentColumn.childNodes;
       if (e.target.parentNode === this.currentColumn) {
         if (e.target !== columnChildren[0] && e.target !== columnChildren[13]) {
-          this.checkPlaySound("A2");
           this.acceptCombination(e.target);
         }
       } else {

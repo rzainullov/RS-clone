@@ -92,6 +92,7 @@ export class GameArea {
   changeLanguageDuringGame() {
     this.language = modalTypesObject.modalSettings.localSettings.playerSettings[2].settingValue;
     this.langIdx = languages.findIndex(item => item.langName === this.language);
+    game.langIdx = this.langIdx;
     gameLobby.langIdx = this.langIdx;
     scoresSheet.langIdx = this.langIdx;
     game.language = this.language;
