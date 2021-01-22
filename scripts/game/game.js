@@ -8,6 +8,28 @@ import { defaultPlayerData } from "../default.js";
 import { audioAPI } from "../../main.js";
 
 export var game = null;
+const setHotKeys = (e) => {
+  const keys = {
+    " ": () => game.rollTheDices(),
+    1: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[1]),
+    2: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[2]),
+    3: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[3]),
+    4: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[4]),
+    5: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[5]),
+    6: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[6]),
+    7: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[7]),
+    8: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[8]),
+    9: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[9]),
+    0: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[10]),
+    "-": () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[11]),
+    "=": () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[12])
+  };
+  var pushTarget = () => keys[e.key]();
+  var isKey = Object.prototype.hasOwnProperty.call(keys, e.key);
+  if (isKey) {
+    pushTarget();
+  }
+};
 
 export class Game {
   constructor(settings, savedGame = null) {
@@ -28,7 +50,7 @@ export class Game {
       this.createNewGame();
       initGameArea(this.settings, this.currentGameData);
       scoresSheet.markCurrentPlayer();
-      this.setHotKeys();
+      this.setEventListener();
     } else {
       this.loadGame();
     }
@@ -48,10 +70,6 @@ export class Game {
     const currentPlayer = this.players[0];
     this.currentGameData.currentPlayer = currentPlayer;
   }
-
-  //   loadGame() {
-
-  //   }
 
   getRandomInt(min, max) {
     this.min = Math.ceil(min);
@@ -204,6 +222,8 @@ export class Game {
   putChosenDiceInRollDiceArea(target) {
     const freeCell = this.lastEmptyRollDiceArea.pop();
     const value = this.getDiceValueFromChosenDice(target);
+    this.target = target;
+    this.target.attributes[0].nodeValue = "";
     const rollDiceArea = document.querySelector(`[${freeCell}]`);
     rollDiceArea.attributes[0].nodeValue = value;
     rollDiceArea.style.background = `url('img/game/dice-${value}.png') center / cover no-repeat `;
@@ -232,30 +252,9 @@ export class Game {
     }
   }
 
-  setHotKeys() {
+  setEventListener() {
     this.window = window;
-    this.window.addEventListener("keypress", (e) => {
-      const keys = {
-        " ": () => this.rollTheDices(),
-        1: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[1]),
-        2: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[2]),
-        3: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[3]),
-        4: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[4]),
-        5: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[5]),
-        6: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[6]),
-        7: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[7]),
-        8: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[8]),
-        9: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[9]),
-        0: () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[10]),
-        "-": () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[11]),
-        "=": () => scoresSheet.acceptCombination(scoresSheet.currentColumn.childNodes[12])
-      };
-      var pushTarget = () => keys[e.key]();
-      var isKey = Object.prototype.hasOwnProperty.call(keys, e.key);
-      if (isKey) {
-        pushTarget();
-      }
-    });
+    this.window.addEventListener("keypress", setHotKeys, false);
   }
 }
 
