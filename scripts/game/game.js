@@ -78,6 +78,7 @@ export class Game {
   }
 
   rollTheDices() {
+    console.log(this.setting)
     this.checkPlaySound("A1");
     if (game.currentGameData.currentAttempt === 3 && this.currentCombinationIsChosen === false) {
       return null;
