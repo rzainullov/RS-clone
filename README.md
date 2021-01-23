@@ -1,3 +1,26 @@
-# RS-clone  
-Team task. App developed by HTML, CSS, JavaScript  
-Deploy: https://sitecreator143.github.io/RS-clone
+# App: dice poker  
+  
+Приложение для игры в покер на костях с компьютера, телефона или планшета. Можно играть в одиночку или с друзьями.  
+  
+Команда разработчиков:  
+https://github.com/Sitecreator143  
+https://github.com/Maxtadont  
+https://github.com/rzainullov  
+  
+Используемые технологии и особенности приложения:  
+HTML + CSS + JavaScript.  
+Eslint airbnb.  
+Аутентификация с использованием хэширования.  
+localStorage и локальная база данных.  
+Audio API.  
+Webpack.  
+Более 20 тестов.  
+Hotkeys.  
+3 языка: русский, английский и итальянский.  
+Несколько модальных диалогов. Переключение без перезагрузки страницы.  
+Сохранение настроек пользователя.  
+Приложение выполнено в едином стиле.  
+Адаптация для телефона и планшета.  
+  
+Посмотреть работу приложения и поиграть:  
+https://sitecreator143.github.io/RS-clone
