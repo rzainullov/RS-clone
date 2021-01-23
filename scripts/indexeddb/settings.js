@@ -21,16 +21,16 @@ export function loadSettingsFromDB(callback) {
 }
 
 export class Settings {
-  #settings = defaultSettings;
+  //#settings = defaultSettings;
   constructor(settings) {
-    this.#settings = settings || defaultSettings;
+    this.settings = settings || defaultSettings;
   }
 
   setSettings(settings) {
-    this.#settings = settings || defaultSettings;
+    this.settings = settings || defaultSettings;
   }
 
   getSettings() {
-    return this.#settings;
+    return this.settings;
   }
 }
